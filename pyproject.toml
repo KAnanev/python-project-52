@@ -10,6 +10,7 @@ packages = [{include = "hexlet_code"}]
 python = "^3.11"
 django = "^4.2.4"
 python-dotenv = "^1.0.0"
+psycopg = "^3.1.10"
 
 
 [build-system]
