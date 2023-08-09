@@ -1,8 +1,15 @@
 MANAGE := poetry run python manage.py
 
+.PHONY: install
+install:
+	@poetry install
+
 .PHONY: migrate
 migrate:
 	@$(MANAGE) migrate
+
+.PHONY: setup
+setup: install migrate
 
 .PHONY: dev
 dev:
@@ -10,12 +17,12 @@ dev:
 
 .PHONY: docker-start
 pg-start:
-	docker compose --file docker-compose.dev.yaml up -d
+	@docker compose --file docker-compose.dev.yaml up -d
 
 
 .PHONY: docker-stop
 pg-stop:
-	docker compose --file docker-compose.dev.yaml down
+	@docker compose --file docker-compose.dev.yaml down
 
 
 .PHONY: lint
