@@ -9,6 +9,6 @@ docker-start:
 	docker compose --file docker-compose.dev.yaml up -d
 
 
-.PHONY: docker-start
+.PHONY: docker-stop
 docker-stop:
-	docker compose --file docker-compose.dev.yaml up -d
+	docker compose --file docker-compose.dev.yaml down
