@@ -21,3 +21,8 @@ pg-stop:
 .PHONY: lint
 lint:
 	@poetry run flake8 task_manager
+
+
+.PHONY: test
+test:
+	@poetry run pytest
