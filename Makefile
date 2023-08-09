@@ -9,10 +9,10 @@ dev:
 	@$(MANAGE) runserver
 
 .PHONY: docker-start
-docker-start:
+pg-start:
 	docker compose --file docker-compose.dev.yaml up -d
 
 
 .PHONY: docker-stop
-docker-stop:
+pg-stop:
 	docker compose --file docker-compose.dev.yaml down
