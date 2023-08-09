@@ -14,6 +14,13 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: ["3.11"]
+    env:
+      POSTGRES_USER: ${{ secrets.PGUSER }}
+      POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
+      POSTGRES_DB: ${{ secrets.PGDATABASE }}
+      PGHOST: ${{ secrets.PGHOST }}
+      PGPORT: ${{ secrets.PGPORT }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     services:
       postgres:
