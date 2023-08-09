@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.11']
+        python-version: ["3.11"]
 
     services:
       postgres:
@@ -51,3 +51,12 @@ jobs:
     - name: Run the tests
       run: |
         make test
+
+    - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v3.2.0
+      if: github.ref_name == 'main'
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: make coverage
+        debug: true

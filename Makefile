@@ -34,6 +34,10 @@ lint:
 test:
 	@poetry run pytest tests
 
+.PHONY: coverage
+coverage:
+	poetry run pytest --cov=task_manager --cov-report xml
+
 .PHONY: check-actions
 check-actions:
 	@act --env-file .env -W .github/workflows/django-check.yml --container-architecture linux/amd64 -v
