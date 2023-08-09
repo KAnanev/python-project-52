@@ -32,4 +32,8 @@ lint:
 
 .PHONY: test
 test:
-	@poetry run pytest
+	@poetry run pytest tests
+
+.PHONY: check-actions
+check-actions:
+	@act --env-file .env -W .github/workflows/django-check.yml --container-architecture linux/amd64 -v
