@@ -16,3 +16,8 @@ pg-start:
 .PHONY: docker-stop
 pg-stop:
 	docker compose --file docker-compose.dev.yaml down
+
+
+.PHONY: lint
+lint:
+	@poetry run flake8 task_manager
