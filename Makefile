@@ -11,6 +11,11 @@ migrate:
 .PHONY: setup
 setup: install migrate
 
+PORT ?= 8000
+.PHONY: start
+start:
+	poetry run gunicorn -w 5 -b 127.0.0.1:$(PORT) task_manager.wsgi:application
+
 .PHONY: dev
 dev:
 	@$(MANAGE) runserver
