@@ -20,13 +20,13 @@ start:
 dev:
 	@$(MANAGE) runserver
 
-.PHONY: docker-start
-pg-start:
+.PHONY: compose-start
+compose-start:
 	@docker compose --file docker-compose.dev.yaml up -d
 
 
-.PHONY: docker-stop
-pg-stop:
+.PHONY: compose-stop
+compose-stop:
 	@docker compose --file docker-compose.dev.yaml down
 
 
