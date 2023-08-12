@@ -4,9 +4,12 @@ WORKDIR /opt/app
 
 ENV DJANGO_SETTINGS_MODULE "task_manager.settings"
 
+RUN mkdir -p /opt/app/static
+
 COPY poetry.lock poetry.lock
 COPY pyproject.toml pyproject.toml
 COPY Makefile Makefile
+
 RUN python -m pip install --upgrade pip
 RUN pip install poetry
 
