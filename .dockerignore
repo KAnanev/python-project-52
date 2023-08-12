@@ -1,0 +1,6 @@
+tests
+.github
+.env
+docker-compose.dev.yaml
+.gitignore
+Dockerfile

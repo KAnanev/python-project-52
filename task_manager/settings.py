@@ -11,7 +11,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'webserver']
+ALLOWED_HOSTS = [
+    'webserver',
+    '0.0.0.0',
+    'python-project-52-production-09bf.up.railway.app',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -95,5 +99,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
