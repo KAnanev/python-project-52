@@ -11,7 +11,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', False) == 'True'
 
-ALLOWED_HOSTS = ['webserver', '0.0.0.0', 'python-project-52-production-09bf.up.railway.app']
+ALLOWED_HOSTS = [
+    'webserver',
+    '0.0.0.0',
+    'python-project-52-production-09bf.up.railway.app',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
