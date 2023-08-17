@@ -13,7 +13,7 @@ services:
       - ${PGDATA}:/var/lib/postgresql/data
 
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U app -d movies_database" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}" ]
       interval: 10s
       timeout: 5s
       retries: 5
