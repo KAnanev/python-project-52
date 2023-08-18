@@ -20,6 +20,10 @@ start:
 dev:
 	@$(MANAGE) runserver
 
+.PHONY: compose-postgres
+compose-postgres:
+	@docker compose --file docker-compose.dev-local.yaml up -d
+
 .PHONY: compose-build
 compose-build:
 	@docker compose --file docker-compose.dev.yaml build
