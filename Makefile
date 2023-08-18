@@ -32,6 +32,9 @@ compose-start:
 compose-stop:
 	@docker compose --file docker-compose.dev.yaml down
 
+.PHONY: compose-restart
+compose-restart: compose-stop compose-build compose-start
+
 .PHONY: lint
 lint:
 	@poetry run flake8 task_manager

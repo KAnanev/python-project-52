@@ -387,3 +387,4 @@ pyrightconfig.json
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/python-project-52.iml
 /.idea/vcs.xml
+/.local.env
