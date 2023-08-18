@@ -3,7 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('./.local.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,6 +13,7 @@ DEBUG = os.environ.get('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = [
     'webserver',
+    '127.0.0.1',
     '0.0.0.0',
     'python-project-52-production-09bf.up.railway.app',
     '192.168.0.126',
