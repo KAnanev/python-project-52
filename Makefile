@@ -20,20 +20,21 @@ start:
 dev:
 	@$(MANAGE) runserver
 
+.PHONY: compose-build
+compose-build:
+	@docker compose --file docker-compose.dev.yaml build
+
 .PHONY: compose-start
 compose-start:
 	@docker compose --file docker-compose.dev.yaml up -d
-
 
 .PHONY: compose-stop
 compose-stop:
 	@docker compose --file docker-compose.dev.yaml down
 
-
 .PHONY: lint
 lint:
 	@poetry run flake8 task_manager
-
 
 .PHONY: test
 test:
