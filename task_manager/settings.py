@@ -13,6 +13,7 @@ DEBUG = os.environ.get('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = [
     'webserver',
+    'localhost',
     '127.0.0.1',
     '0.0.0.0',
     'python-project-52-production-09bf.up.railway.app',
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap5',
+    'account',
 ]
 
 MIDDLEWARE = [
