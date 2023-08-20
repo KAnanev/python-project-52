@@ -97,6 +97,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://python-project-52-production-09bf.up.railway.app'
+]
+
 LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
