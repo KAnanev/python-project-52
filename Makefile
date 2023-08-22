@@ -8,6 +8,13 @@ install:
 migrate:
 	@$(MANAGE) migrate
 
+.PHONY: create_superuser
+create_superuser:
+	@$(MANAGE) create_superuser
+
+.PHONY: collect_static
+collect_static:
+	@$(MANAGE) collectstatic --no-input
 
 .PHONY: setup
 setup: install migrate
@@ -15,13 +22,11 @@ setup: install migrate
 PORT ?= 8000
 .PHONY: start
 start:
-	poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
+	@poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 .PHONY: dev
 dev:
 	@$(MANAGE) runserver
-
-
 
 .PHONY: compose-build
 compose-build:
