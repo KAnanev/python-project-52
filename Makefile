@@ -8,21 +8,25 @@ install:
 migrate:
 	@$(MANAGE) migrate
 
+.PHONY: create_superuser
+create_superuser:
+	@$(MANAGE) create_superuser
+
+.PHONY: collect_static
+collect_static:
+	@$(MANAGE) collectstatic --no-input
+
 .PHONY: setup
 setup: install migrate
 
 PORT ?= 8000
 .PHONY: start
 start:
-	poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
+	@poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 .PHONY: dev
 dev:
 	@$(MANAGE) runserver
-
-.PHONY: compose-postgres
-compose-postgres:
-	@docker compose --file docker-compose.dev-local.yaml up -d
 
 .PHONY: compose-build
 compose-build:
@@ -50,7 +54,3 @@ test:
 .PHONY: coverage
 coverage:
 	poetry run pytest --cov=task_manager --cov-report xml
-
-.PHONY: check-actions
-check-actions:
-	@act --env-file .env -W .github/workflows/django-check.yml --container-architecture linux/amd64 -v
