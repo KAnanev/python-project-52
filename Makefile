@@ -8,6 +8,7 @@ install:
 migrate:
 	@$(MANAGE) migrate
 
+
 .PHONY: setup
 setup: install migrate
 
@@ -20,9 +21,7 @@ start:
 dev:
 	@$(MANAGE) runserver
 
-.PHONY: compose-postgres
-compose-postgres:
-	@docker compose --file docker-compose.dev-local.yaml up -d
+
 
 .PHONY: compose-build
 compose-build:
@@ -50,7 +49,3 @@ test:
 .PHONY: coverage
 coverage:
 	poetry run pytest --cov=task_manager --cov-report xml
-
-.PHONY: check-actions
-check-actions:
-	@act --env-file .env -W .github/workflows/django-check.yml --container-architecture linux/amd64 -v
