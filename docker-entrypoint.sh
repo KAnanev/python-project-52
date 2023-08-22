@@ -1,8 +1,4 @@
 #!/bin/sh
-# Apply database migration
-echo "Apply database migrations"
-poetry run python manage.py migrate
-
 # Create superuser
 echo "Create superuser"
 poetry run python manage.py create_superuser
