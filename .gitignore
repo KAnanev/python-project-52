@@ -388,3 +388,4 @@ pyrightconfig.json
 /.idea/python-project-52.iml
 /.idea/vcs.xml
 /.local.env
+/task_manager/settings/environments/local.py
