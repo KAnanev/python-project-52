@@ -12,7 +12,7 @@ def get_env(key):
 
 
 class Command(BaseCommand):
-    help = 'Create a superuser'
+    help = 'Создать суперпользователя'
 
     def handle(self, *args, **options):
 
@@ -23,10 +23,10 @@ class Command(BaseCommand):
                 password=get_env('DJANGO_SUPERUSER_PASS'),
             )
 
-            self.stdout.write(self.style.SUCCESS('Superuser created successfully!'))
+            self.stdout.write(self.style.SUCCESS('Суперпользователь успешно создан!'))
 
         except KeyError as er:
             self.stderr.write(self.style.ERROR(f"Произошла ошибка: {str(er)}\n"))
 
         except IntegrityError:
-            self.stdout.write(self.style.WARNING('Superuser already created!'))
+            self.stdout.write(self.style.WARNING('Суперпользователь создан ранее!'))
