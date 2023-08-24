@@ -23,10 +23,16 @@ class Command(BaseCommand):
                 password=get_env('DJANGO_SUPERUSER_PASS'),
             )
 
-            self.stdout.write(self.style.SUCCESS('Суперпользователь успешно создан!'))
+            self.stdout.write(
+                self.style.SUCCESS('Суперпользователь успешно создан!')
+            )
 
         except KeyError as er:
-            self.stderr.write(self.style.ERROR(f"Произошла ошибка: {str(er)}\n"))
+            self.stderr.write(
+                self.style.ERROR(f"Произошла ошибка: {str(er)}\n")
+            )
 
         except IntegrityError:
-            self.stdout.write(self.style.WARNING('Суперпользователь создан ранее!'))
+            self.stdout.write(
+                self.style.WARNING('Суперпользователь создан ранее!')
+            )
