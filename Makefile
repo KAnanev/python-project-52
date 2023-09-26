@@ -54,3 +54,12 @@ test:
 .PHONY: coverage
 coverage:
 	poetry run pytest --cov=task_manager --cov-report xml
+
+.PHONY: makemessages
+migrate:
+	@$(MANAGE) makemessages -l en
+
+.PHONY: compilemessages
+migrate:
+	@$(MANAGE) compilemessages
+
