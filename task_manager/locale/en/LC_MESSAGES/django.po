@@ -3,20 +3,40 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 15:40+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-09-26 18:37+0000\n"
+"PO-Revision-Date: 2023-09-26 21:31+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: task_manager/account/templates/signup.html:4
+#: task_manager/account/templates/signup.html:5
+#: task_manager/templates/navbar.html:36
+msgid "Регистрация"
+msgstr "Sign up"
+
+#: task_manager/account/templates/users.html:3
+#: task_manager/templates/navbar.html:10
+msgid "Пользователи"
+msgstr "Users"
+
+#: task_manager/account/views.py:18
+msgid "Пользователь успешно зарегистрирован"
+msgstr "User successfully registered"
+
+#: task_manager/account/views.py:23
+msgid "Зарегистрировать"
+msgstr "Sign up"
+
 #: task_manager/settings/components/base.py:84
 msgid "English"
 msgstr "English"
@@ -40,3 +60,23 @@ msgstr "Practical programming courses"
 #: task_manager/templates/index.html:9
 msgid "Узнать больше"
 msgstr "To learn more"
+
+#: task_manager/templates/navbar.html:3
+msgid "Менеджер задач"
+msgstr "Task Manager"
+
+#: task_manager/templates/navbar.html:14
+msgid "Статусы"
+msgstr "Statuses"
+
+#: task_manager/templates/navbar.html:17
+msgid "Метки"
+msgstr "Tags"
+
+#: task_manager/templates/navbar.html:20
+msgid "Задачи"
+msgstr "Tasks"
+
+#: task_manager/templates/navbar.html:33
+msgid "Вход"
+msgstr "Log in"
