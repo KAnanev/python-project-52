@@ -10,7 +10,12 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 {% include 'navbar.html' %}
-{% block content %}{% endblock %}
+<div class="container wrapper flex-grow-1">
+  <h1 class="my-4">
+    {% block name_page %}{% endblock %}
+  </h1>
+  {% block content %}{% endblock %}
+</div>
 {% include 'footer.html' %}
 </body>
 </html>

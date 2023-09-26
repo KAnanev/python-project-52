@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+{% load i18n %}
+{% block title %}Регистрация{% endblock %}
+{% block name_page %}Регистрация{% endblock %}
+{% block content %}
+<form method="post">
+{% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button button_text button_type="submit" button_class="btn btn-primary" %}
+<!--{% for field in form %}-->
+<!--    <div class="mb-3">-->
+<!--        {{ field.errors }}-->
+<!--        {{ field.label }}-->
+<!--        {{ field }}-->
+<!--        <div class="form-text">-->
+<!--            {{ field.help_text }}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--{% endfor %}-->
+<!--<input class="btn btn-primary" type="submit" value="Зарегистрировать">-->
+</form>
+{% endblock %}
