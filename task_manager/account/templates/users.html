@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Пользователи" %}{% endblock %}
+{% block name_page %}{% translate "Пользователи" %}{% endblock %}
+{% block content %}
+
+<ul>
+    {% for publisher in object_list %}
+    <li>{{ publisher.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
