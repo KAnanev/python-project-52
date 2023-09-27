@@ -1,9 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+
+from task_manager.views import IndexView, UserLoginView, UserLogoutView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html')),
-    path('users/', include('task_manager.account.urls')),
+    path('', IndexView.as_view(), name="home"),
+
     path('admin/', admin.site.urls),
+
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
+
+    path('users/', include('task_manager.account.urls'), name="users"),
 ]
