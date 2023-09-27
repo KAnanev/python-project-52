@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 18:37+0000\n"
-"PO-Revision-Date: 2023-09-26 21:31+0300\n"
+"POT-Creation-Date: 2023-09-27 18:41+0000\n"
+"PO-Revision-Date: 2023-09-27 21:43+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -18,13 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: task_manager/account/templates/signup.html:4
-#: task_manager/account/templates/signup.html:5
-#: task_manager/templates/navbar.html:36
-msgid "Регистрация"
-msgstr "Sign up"
+#: task_manager/account/forms.py:11
+msgid "Имя"
+msgstr "First Name"
+
+#: task_manager/account/forms.py:14
+msgid "Фамилия"
+msgstr "Last Name"
 
 #: task_manager/account/templates/users.html:3
+#: task_manager/account/templates/users.html:4
 #: task_manager/templates/navbar.html:10
 msgid "Пользователи"
 msgstr "Users"
@@ -33,15 +36,19 @@ msgstr "Users"
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:23
+#: task_manager/account/views.py:23 task_manager/templates/navbar.html:36
+msgid "Регистрация"
+msgstr "Sign up"
+
+#: task_manager/account/views.py:24
 msgid "Зарегистрировать"
 msgstr "Sign up"
 
-#: task_manager/settings/components/base.py:84
+#: task_manager/settings/components/base.py:86
 msgid "English"
 msgstr "English"
 
-#: task_manager/settings/components/base.py:85
+#: task_manager/settings/components/base.py:87
 msgid "Russian"
 msgstr "Russian"
 
@@ -61,7 +68,7 @@ msgstr "Practical programming courses"
 msgid "Узнать больше"
 msgstr "To learn more"
 
-#: task_manager/templates/navbar.html:3
+#: task_manager/templates/navbar.html:3 task_manager/views.py:12
 msgid "Менеджер задач"
 msgstr "Task Manager"
 
@@ -80,3 +87,15 @@ msgstr "Tasks"
 #: task_manager/templates/navbar.html:33
 msgid "Вход"
 msgstr "Log in"
+
+#: task_manager/views.py:19
+msgid "Вы залогинены"
+msgstr "You are logged in"
+
+#: task_manager/views.py:21 task_manager/views.py:22
+msgid "Войти"
+msgstr "Log in"
+
+#: task_manager/views.py:29 task_manager/views.py:32
+msgid "Вы разлогинены"
+msgstr "You are logged out"
