@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 18:41+0000\n"
-"PO-Revision-Date: 2023-09-27 21:43+0300\n"
+"POT-Creation-Date: 2023-09-27 18:50+0000\n"
+"PO-Revision-Date: 2023-09-27 21:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -36,7 +36,7 @@ msgstr "Users"
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:23 task_manager/templates/navbar.html:36
+#: task_manager/account/views.py:23 task_manager/templates/navbar.html:34
 msgid "Регистрация"
 msgstr "Sign up"
 
@@ -84,7 +84,11 @@ msgstr "Tags"
 msgid "Задачи"
 msgstr "Tasks"
 
-#: task_manager/templates/navbar.html:33
+#: task_manager/templates/navbar.html:27
+msgid "Выход"
+msgstr "Log out"
+
+#: task_manager/templates/navbar.html:31
 msgid "Вход"
 msgstr "Log in"
 

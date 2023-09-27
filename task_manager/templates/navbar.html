@@ -23,11 +23,9 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-            <form action="/logout/" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken" value="6sEj0TSVOWiHwsRLFy8HkgTkSR3VUCOOZZmGHD0OGNxWNsUAkjhUJwJfL3yuLjwJ">
-                <input class="btn nav-link" type="submit" value="Выход">
-            </form>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">{% translate "Выход" %}</a>
+            </li>
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="/login/">{% translate "Вход" %}</a>
