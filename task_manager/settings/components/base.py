@@ -72,6 +72,8 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+AUTH_USER_MODEL = 'account.User'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
