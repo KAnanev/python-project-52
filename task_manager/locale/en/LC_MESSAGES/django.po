@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 18:50+0000\n"
+"POT-Creation-Date: 2023-09-29 13:46+0000\n"
 "PO-Revision-Date: 2023-09-27 21:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,17 +32,33 @@ msgstr "Last Name"
 msgid "Пользователи"
 msgstr "Users"
 
-#: task_manager/account/views.py:18
+#: task_manager/account/views.py:20
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:23 task_manager/templates/navbar.html:34
+#: task_manager/account/views.py:25 task_manager/templates/navbar.html:34
 msgid "Регистрация"
 msgstr "Sign up"
 
-#: task_manager/account/views.py:24
+#: task_manager/account/views.py:26
 msgid "Зарегистрировать"
 msgstr "Sign up"
+
+#: task_manager/account/views.py:33
+msgid "Пользователь успешно изменен"
+msgstr "User is successfully updated"
+
+#: task_manager/account/views.py:39
+msgid "Вы не авторизованы! Пожалуйста, выполните вход."
+msgstr "You are not logged in! Please log in."
+
+#: task_manager/account/views.py:42
+msgid "Изменение пользователя"
+msgstr "Update user"
+
+#: task_manager/account/views.py:43
+msgid "Изменить"
+msgstr "Update"
 
 #: task_manager/settings/components/base.py:86
 msgid "English"

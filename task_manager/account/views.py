@@ -1,8 +1,9 @@
-from django.views.generic import ListView, CreateView, UpdateView
-from django.urls import reverse_lazy
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
+from django.views.generic import ListView, CreateView, UpdateView
 
 from task_manager.account.forms import UserForm
 from task_manager.account.models import User
@@ -35,7 +36,15 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('login')
     template_name = 'form.html'
 
+    auth_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
+
     extra_context = {
         'title': _('Изменение пользователя'),
         'button_text': _('Изменить'),
     }
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, self.auth_message)
+        return super().dispatch(request, *args, **kwargs)
+
