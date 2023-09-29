@@ -47,4 +47,3 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if not request.user.is_authenticated:
             messages.error(request, self.auth_message)
         return super().dispatch(request, *args, **kwargs)
-
