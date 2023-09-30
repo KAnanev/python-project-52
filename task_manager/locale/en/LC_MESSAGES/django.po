@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-29 13:46+0000\n"
+"POT-Creation-Date: 2023-09-30 06:47+0000\n"
 "PO-Revision-Date: 2023-09-27 21:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,31 +32,35 @@ msgstr "Last Name"
 msgid "Пользователи"
 msgstr "Users"
 
-#: task_manager/account/views.py:20
+#: task_manager/account/views.py:21
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:25 task_manager/templates/navbar.html:34
+#: task_manager/account/views.py:26 task_manager/templates/navbar.html:34
 msgid "Регистрация"
 msgstr "Sign up"
 
-#: task_manager/account/views.py:26
+#: task_manager/account/views.py:27
 msgid "Зарегистрировать"
 msgstr "Sign up"
 
-#: task_manager/account/views.py:33
+#: task_manager/account/views.py:37
 msgid "Пользователь успешно изменен"
 msgstr "User is successfully updated"
 
-#: task_manager/account/views.py:39
+#: task_manager/account/views.py:43
 msgid "Вы не авторизованы! Пожалуйста, выполните вход."
 msgstr "You are not logged in! Please log in."
 
-#: task_manager/account/views.py:42
+#: task_manager/account/views.py:46
+msgid "У вас нет прав для изменения другого пользователя."
+msgstr "You have no rights to change another user."
+
+#: task_manager/account/views.py:51
 msgid "Изменение пользователя"
 msgstr "Update user"
 
-#: task_manager/account/views.py:43
+#: task_manager/account/views.py:52
 msgid "Изменить"
 msgstr "Update"
 
