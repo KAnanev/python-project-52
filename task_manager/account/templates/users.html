@@ -7,24 +7,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Имя пользователя</th>
-      <th>Полное имя</th>
-      <th>Дата создания</th>
+      <th>{% translate "ID" %}</th>
+      <th>{% translate "Имя пользователя" %}</th>
+      <th>{% translate "Полное имя" %}</th>
+      <th>{% translate "Дата создания" %}</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    {% for publisher in object_list %}
+    {% for user in object_list %}
       <tr>
-        <td>{{ publisher.id }}</td>
-        <td>{{ publisher.username }}</td>
-        <td>{{ publisher.get_full_name }}</td>
-        <td>{{ publisher.date_joined|date:'d.m.Y H:i' }}</td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.date_joined|date:'d.m.Y H:i' }}</td>
         <td>
-          <a href="{% url 'update_user' publisher.id %}">Изменить</a>
+          <a href="{% url 'update_user' user.id %}">{% translate "Изменить" %}</a>
           <br>
-          <a href="/users/1/delete/">Удалить</a>
+          <a href="{% url 'delete_user' user.id %}">{% translate "Удалить" %}</a>
         </td>
       </tr>
     {% endfor %}

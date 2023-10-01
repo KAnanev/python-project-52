@@ -20,7 +20,6 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     extra_context = {
         'title:': _('Войти'),
         'button_text': _('Войти'),
-
     }
 
 
@@ -29,5 +28,5 @@ class UserLogoutView(LogoutView):
     success_message = _('Вы разлогинены')
 
     def dispatch(self, request, *args, **kwargs):
-        messages.info(request, _('Вы разлогинены'))
+        messages.info(request, self.success_message)
         return super().dispatch(request, *args, **kwargs)
