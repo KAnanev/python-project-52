@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 06:47+0000\n"
+"POT-Creation-Date: 2023-10-01 09:27+0000\n"
 "PO-Revision-Date: 2023-09-27 21:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,27 +32,55 @@ msgstr "Last Name"
 msgid "Пользователи"
 msgstr "Users"
 
+#: task_manager/account/templates/users.html:10
+msgid "ID"
+msgstr "ID"
+
+#: task_manager/account/templates/users.html:11
+msgid "Имя пользователя"
+msgstr "Name"
+
+#: task_manager/account/templates/users.html:12
+msgid "Полное имя"
+msgstr "Full name"
+
+#: task_manager/account/templates/users.html:13
+msgid "Дата создания"
+msgstr "Created at"
+
+#: task_manager/account/templates/users.html:25
+#: task_manager/account/views.py:52
+msgid "Изменить"
+msgstr "Update"
+
+#: task_manager/account/templates/users.html:27
+msgid "Удалить"
+msgstr "Delete"
+
+#: task_manager/account/templates/users_confirm_delete.html:4
+#: task_manager/account/templates/users_confirm_delete.html:5
+msgid "Удалить пользователя"
+msgstr "Delete user"
+
 #: task_manager/account/views.py:21
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:26 task_manager/templates/navbar.html:34
-msgid "Регистрация"
-msgstr "Sign up"
-
+#: task_manager/account/views.py:26
+#: task_manager/templates/navbar.html:34
 #: task_manager/account/views.py:27
-msgid "Зарегистрировать"
+msgid "Регистрация"
 msgstr "Sign up"
 
 #: task_manager/account/views.py:37
 msgid "Пользователь успешно изменен"
 msgstr "User is successfully updated"
 
-#: task_manager/account/views.py:43
+#: task_manager/account/views.py:43 task_manager/account/views.py:82
 msgid "Вы не авторизованы! Пожалуйста, выполните вход."
 msgstr "You are not logged in! Please log in."
 
-#: task_manager/account/views.py:46
+#: task_manager/account/views.py:46 task_manager/account/views.py:85
 msgid "У вас нет прав для изменения другого пользователя."
 msgstr "You have no rights to change another user."
 
@@ -60,9 +88,18 @@ msgstr "You have no rights to change another user."
 msgid "Изменение пользователя"
 msgstr "Update user"
 
-#: task_manager/account/views.py:52
-msgid "Изменить"
-msgstr "Update"
+#: task_manager/account/views.py:78
+msgid "Пользователь успешно удален"
+msgstr "User is successfully deleted"
+
+#: task_manager/account/views.py:90
+msgid "Да, удалить"
+msgstr "Yes, delete"
+
+#: task_manager/account/views.py:95
+#, python-brace-format
+msgid "Вы уверены, что хотите удалить {self.object}"
+msgstr "Are you sure you want to delete {self.object}"
 
 #: task_manager/settings/components/base.py:86
 msgid "English"
@@ -118,8 +155,8 @@ msgstr "You are logged in"
 
 #: task_manager/views.py:21 task_manager/views.py:22
 msgid "Войти"
-msgstr "Log in"
+msgstr "Enter"
 
-#: task_manager/views.py:29 task_manager/views.py:32
+#: task_manager/views.py:28
 msgid "Вы разлогинены"
 msgstr "You are logged out"
