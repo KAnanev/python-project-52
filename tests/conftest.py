@@ -3,13 +3,6 @@ from django.urls import reverse
 
 
 @pytest.fixture
-def response_home(client):
-    url = reverse('home')
-    response = client.get(url)
-    return response
-
-
-@pytest.fixture
 def create_user(db, django_user_model):
     def make_user(**kwargs):
         return django_user_model.objects.create_user(**kwargs)

@@ -1,4 +1,12 @@
 import pytest
+from django.urls import reverse
+
+
+@pytest.fixture
+def response_home(client):
+    url = reverse('home')
+    response = client.get(url)
+    return response
 
 
 def test_index_view(response_home):
