@@ -18,7 +18,7 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     next_page = reverse_lazy('home')
     success_message = _('Вы залогинены')
     extra_context = {
-        'title:': _('Войти'),
+        'title': _('Вход'),
         'button_text': _('Войти'),
     }
 
