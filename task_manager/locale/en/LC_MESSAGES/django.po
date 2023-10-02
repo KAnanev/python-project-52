@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-01 09:27+0000\n"
+"POT-Creation-Date: 2023-10-02 19:24+0000\n"
 "PO-Revision-Date: 2023-09-27 21:50+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -66,11 +66,13 @@ msgstr "Delete user"
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
 
-#: task_manager/account/views.py:26
-#: task_manager/templates/navbar.html:34
-#: task_manager/account/views.py:27
+#: task_manager/account/views.py:26 task_manager/templates/navbar.html:34
 msgid "Регистрация"
 msgstr "Sign up"
+
+#: task_manager/account/views.py:27
+msgid "Зарегистрировать"
+msgstr "Sign in"
 
 #: task_manager/account/views.py:37
 msgid "Пользователь успешно изменен"
@@ -109,10 +111,6 @@ msgstr "English"
 msgid "Russian"
 msgstr "Russian"
 
-#: task_manager/templates/index.html:3
-msgid "Менеджер задач Hexlet"
-msgstr "Hexlet Task Manager"
-
 #: task_manager/templates/index.html:6
 msgid "Привет от Хекслета!"
 msgstr "Hello from Hexlet!"
@@ -125,7 +123,7 @@ msgstr "Practical programming courses"
 msgid "Узнать больше"
 msgstr "To learn more"
 
-#: task_manager/templates/navbar.html:3 task_manager/views.py:12
+#: task_manager/templates/navbar.html:3
 msgid "Менеджер задач"
 msgstr "Task Manager"
 
@@ -145,15 +143,19 @@ msgstr "Tasks"
 msgid "Выход"
 msgstr "Log out"
 
-#: task_manager/templates/navbar.html:31
+#: task_manager/templates/navbar.html:31 task_manager/views.py:21
 msgid "Вход"
 msgstr "Log in"
+
+#: task_manager/views.py:12
+msgid "Менеджер задач Hexlet"
+msgstr "Hexlet Task Manager"
 
 #: task_manager/views.py:19
 msgid "Вы залогинены"
 msgstr "You are logged in"
 
-#: task_manager/views.py:21 task_manager/views.py:22
+#: task_manager/views.py:22
 msgid "Войти"
 msgstr "Enter"
 
