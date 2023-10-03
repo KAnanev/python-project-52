@@ -74,7 +74,7 @@ class UserDeleteView(
 ):
     model = User
     template_name = 'users_confirm_delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('users')
 
     success_message = _('Пользователь успешно удален')
 
@@ -106,4 +106,5 @@ class UserDeleteView(
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, self.auth_message)
+            return redirect(reverse_lazy('login'))
         return super().dispatch(request, *args, **kwargs)
