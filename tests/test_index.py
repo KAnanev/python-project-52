@@ -21,6 +21,7 @@ def test_index_view(response_home):
     ('Регистрация', '/users/create/'),
 ])
 def test_navbar_index_view(text, url, response_home):
+    """Не вошедший пользователь видит вход и регистрацию."""
     assert text in response_home.content.decode('utf8')
     assert url in response_home.content.decode('utf8')
 
@@ -30,6 +31,7 @@ def test_navbar_index_view(text, url, response_home):
     ('Регистрация', '/users/create/'),
 ])
 def test_navbar_login_index_view(text, url, client_with_login_test_user_1):
+    """Вошедший пользователь не видит вход и регистрацию."""
     assert text not in client_with_login_test_user_1.content.decode('utf8')
     assert url not in client_with_login_test_user_1.content.decode('utf8')
 
@@ -40,5 +42,6 @@ def test_navbar_login_index_view(text, url, client_with_login_test_user_1):
     ('Задачи', '/tasks/'),
 ])
 def test_navbar_login_index_view(text, url, client_with_login_test_user_1):
+    """Вошедший пользователь не видит статусы, метки, задачи."""
     assert text in client_with_login_test_user_1.content.decode('utf8')
     assert url in client_with_login_test_user_1.content.decode('utf8')
