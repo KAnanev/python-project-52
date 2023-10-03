@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
-    'task_manager.account',
+    'task_manager.users',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +72,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'users.User'
 
 TIME_ZONE = 'UTC'
 

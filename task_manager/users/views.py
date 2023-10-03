@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from task_manager.account.forms import UserForm
-from task_manager.account.models import User
+from task_manager.users.forms import UserForm
+from task_manager.users.models import User
 
 
 class UserListView(ListView):
@@ -62,6 +62,7 @@ class UserUpdateView(
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, self.auth_message)
+            return redirect(reverse_lazy('login'))
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -73,7 +74,7 @@ class UserDeleteView(
 ):
     model = User
     template_name = 'users_confirm_delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('users')
 
     success_message = _('Пользователь успешно удален')
 
@@ -105,4 +106,5 @@ class UserDeleteView(
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, self.auth_message)
+            return redirect(reverse_lazy('login'))
         return super().dispatch(request, *args, **kwargs)
