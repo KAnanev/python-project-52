@@ -62,6 +62,7 @@ class UserUpdateView(
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, self.auth_message)
+            return redirect(reverse_lazy('login'))
         return super().dispatch(request, *args, **kwargs)
 
 
