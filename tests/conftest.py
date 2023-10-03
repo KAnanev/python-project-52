@@ -34,6 +34,4 @@ def client_with_login_test_user_1(client, create_test_user_1):
     client.login(
         username='test_user_1', password='test_pass'
     )
-    url_ = reverse('home')
-    response = client.get(url_)
-    return response
+    return client
