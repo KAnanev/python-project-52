@@ -380,7 +380,7 @@ pyrightconfig.json
 /pgdata/
 /static/
 /staticfiles/
-/.idea/.gitignore
+/.idea/
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
@@ -389,3 +389,4 @@ pyrightconfig.json
 /.idea/vcs.xml
 /.local.env
 /task_manager/settings/environments/local.py
+.DS_Store

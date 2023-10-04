@@ -1,7 +1,9 @@
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
+
 from django.db.utils import IntegrityError
 import os
+
+from task_manager.users.models import User
 
 
 def get_env(key):
