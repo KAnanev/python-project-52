@@ -1,9 +1,13 @@
+import os
+
+HOST = os.environ.get('HOST') or '*'
+
 ALLOWED_HOSTS = [
-    'https://python-project-52-production-b33a.up.railway.app/',
+    HOST,
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://python-project-52-production-b33a.up.railway.app/'
+    HOST,
 ]
 
 DATABASES = {
