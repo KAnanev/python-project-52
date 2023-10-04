@@ -1,9 +1,9 @@
 ALLOWED_HOSTS = [
-    'https://python-project-52-production-b33a.up.railway.app/',
+    '*',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://python-project-52-production-b33a.up.railway.app/'
+    '*',
 ]
 
 DATABASES = {
