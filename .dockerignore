@@ -6,3 +6,14 @@ docker-compose.dev.yaml
 Dockerfile
 pgdata
 static
+/task_manager/settings/environments/local.py
+/htmlcov/
+/.coverage
+/coverage.xml
+/db.sqlite3
+/example.env
+.pytest_cache
+.venv
+.git
+.DS_Store
+/.idea
