@@ -1,9 +1,13 @@
+import os
+
+HOST = os.environ.get('HOST') or '*'
+
 ALLOWED_HOSTS = [
-    '*',
+    HOST,
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    '*',
+    HOST,
 ]
 
 DATABASES = {
