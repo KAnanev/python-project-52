@@ -16,7 +16,7 @@ def test_without_login_statuses_view(client):
     assert 'Вы не авторизованы! Пожалуйста, выполните вход.' in message.message
 
 
-def test_statuses_view(client):
+def test_statuses_view(client_with_login_test_user_1, client):
 
     response = client.get(URL)
 
