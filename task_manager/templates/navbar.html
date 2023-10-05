@@ -11,7 +11,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="/statuses/">{% translate "Статусы" %}</a>
+                <a class="nav-link" href="{% url 'statuses' %}">{% translate "Статусы" %}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/labels/">{% translate "Метки" %}</a>
