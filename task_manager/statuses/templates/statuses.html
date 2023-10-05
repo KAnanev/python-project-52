@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Статусы" %}{% endblock %}
+{% block name_page %}{% translate "Статусы" %}{% endblock %}
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>{% translate "ID" %}</th>
+      <th>{% translate "Имя " %}</th>
+      <th>{% translate "Дата создания" %}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for status in object_list %}
+      <tr>
+        <td>{{ status.id }}</td>
+        <td>{{ status.username }}</td>
+        <td>{{ status.date_joined|date:'d.m.Y H:i' }}</td>
+        <td>
+          <a href="{% url 'update_status' status.id %}">{% translate "Изменить" %}</a>
+          <br>
+          <a href="{% url 'delete_status' status.id %}">{% translate "Удалить" %}</a>
+        </td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
