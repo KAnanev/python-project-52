@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
+from django.views.generic import DeleteView
 
 
 class AuthRequiredMixin(LoginRequiredMixin):
-
     auth_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
 
     def dispatch(self, request, *args, **kwargs):
@@ -17,7 +17,6 @@ class AuthRequiredMixin(LoginRequiredMixin):
 
 
 class UserPermissionMixin(UserPassesTestMixin):
-
     permission_message = None
     permission_url = None
 
@@ -27,3 +26,13 @@ class UserPermissionMixin(UserPassesTestMixin):
     def handle_no_permission(self):
         messages.error(self.request, self.permission_message)
         return redirect(self.permission_url)
+
+
+class DeleteViewMixin(DeleteView):
+    def get_template_names(self):
+        return 'confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['desc'] = _(f'Вы уверены, что хотите удалить {self.object}?')
+        return context

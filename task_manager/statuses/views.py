@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.translation import gettext as _
 
-from task_manager.mixins import AuthRequiredMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteViewMixin
 from task_manager.statuses.models import TaskStatus
 
 
@@ -36,4 +36,12 @@ class TaskStatusUpdateView(TaskStatusMixin, UpdateView):
     extra_context = {
         'title': _('Изменение статуса'),
         'button_text': _('Изменить'),
+    }
+
+
+class TaskStatusDeleteView(TaskStatusMixin, DeleteViewMixin):
+    success_message = _('Статус успешно удален')
+    extra_context = {
+        'title': _('Удаление статуса'),
+        'button_text': _('Да, удалить'),
     }

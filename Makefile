@@ -63,3 +63,7 @@ makemessages:
 compilemessages:
 	@$(MANAGE) compilemessages
 
+.PHONY: coverage-html
+coverage-html:
+	poetry run pytest --cov=task_manager --cov-report html
+
