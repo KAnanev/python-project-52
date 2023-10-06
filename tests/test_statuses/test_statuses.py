@@ -56,7 +56,7 @@ def test_post_create_status_view(client_with_login_test_user_1, client):
 
 def test_get_update_status_view(status_in_db, client_with_login_test_user_1, client):
     status = TaskStatus.objects.first()
-    response = client.get(reverse('update_status', kwargs={'id': status.id}))
+    response = client.get(reverse('update_status', kwargs={'pk': status.pk}))
 
     assert response.status_code == 200
     assert response.context['title'] == 'Изменение статуса'
@@ -68,11 +68,15 @@ def test_post_update_status_view(status_in_db, client_with_login_test_user_1, cl
 
     status = TaskStatus.objects.first()
     response = client.post(
-        reverse('update_status', kwargs={'id': status.id}),
-        {'name', STATUS},
+        reverse('update_status', kwargs={'pk': status.pk}),
+        {'name': STATUS},
         follow=True,
     )
+
+    status = TaskStatus.objects.get(pk=status.pk)
+    message = list(response.context.get('messages'))[0]
 
     assert response.status_code == 200
     assert status.name == STATUS
     assert status.name in response.content.decode('utf8')
+    assert 'Статус успешно изменен' in message.message
