@@ -4,6 +4,7 @@
 {% block name_page %}{{ title }}{% endblock %}
 {% block content %}
 
+<a class="nav-link" href="{% url 'create_status' %}">Создать статус</a>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,12 +18,12 @@
     {% for status in object_list %}
       <tr>
         <td>{{ status.id }}</td>
-        <td>{{ status.username }}</td>
-        <td>{{ status.date_joined|date:'d.m.Y H:i' }}</td>
+        <td>{{ status.name }}</td>
+        <td>{{ status.created_at|date:'d.m.Y H:i' }}</td>
         <td>
           <a href="{% url 'update_status' status.id %}">{% translate "Изменить" %}</a>
           <br>
-          <a href="{% url 'delete_status' status.id %}">{% translate "Удалить" %}</a>
+          <a href="{% url 'delete_status' %}">{% translate "Удалить" %}</a>
         </td>
       </tr>
     {% endfor %}
