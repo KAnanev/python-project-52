@@ -1,6 +1,8 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.statuses.models import TaskStatus
+
 
 @pytest.fixture
 def create_user(db, django_user_model):
@@ -35,3 +37,8 @@ def client_with_login_test_user_1(client, create_test_user_1):
         username='test_user_1', password='test_pass'
     )
     return client
+
+
+@pytest.fixture
+def status_in_db(db):
+    TaskStatus.objects.create(name='В работе')
