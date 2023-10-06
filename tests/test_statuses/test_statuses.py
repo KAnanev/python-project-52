@@ -25,19 +25,20 @@ def test_statuses_view(client_with_login_test_user_1, client):
 
     assert response.context['title'] == 'Статусы'
     assert '<title>Статусы</title>' in response.content.decode('utf8')
+    assert 'Создать статус' in response.content.decode('utf8')
 
 
-def test_get_create_statuses_view(client):
+def test_get_create_statuses_view(client_with_login_test_user_1, client):
 
-    response = client.get(URL)
+    response = client.get(CREATE_STATUSES_URL)
     assert response.status_code == 200
     assert response.context['title'] == 'Создать статус'
     assert '<title>Создать статус</title>' in response.content.decode('utf8')
 
 
-def test_post_create_statuses_view(client):
+def test_post_create_statuses_view(client_with_login_test_user_1, client):
 
-    response = client.post(URL, {'name': STATUS}, follow=True)
+    response = client.post(CREATE_STATUSES_URL, {'name': STATUS}, follow=True)
     message = list(response.context.get('messages'))[0]
 
     assert response.status_code == 200

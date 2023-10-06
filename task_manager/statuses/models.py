@@ -7,7 +7,7 @@ class TaskStatus(models.Model):
         max_length=50,
         blank=False,
         unique=True,
-        verbose_name=_('Название'),
+        verbose_name=_('Имя'),
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
