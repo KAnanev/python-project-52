@@ -1,7 +1,7 @@
 from django.urls import path
 from task_manager.statuses.views import (
     TaskStatusesView, TaskStatusCreateView,
-    TaskStatusUpdateView,
+    TaskStatusUpdateView, TaskStatusDeleteView
 )
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
     path('create', TaskStatusCreateView.as_view(), name='create_status'),
     path('<int:pk>/update',
          TaskStatusUpdateView.as_view(), name='update_status'),
-    path('delete', TaskStatusesView.as_view(), name='delete_status'),
+    path('<int:pk>/delete',
+         TaskStatusDeleteView.as_view(), name='delete_status'),
 ]

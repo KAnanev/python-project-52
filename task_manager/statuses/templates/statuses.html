@@ -23,7 +23,7 @@
         <td>
           <a href="{% url 'update_status' status.id %}">{% translate "Изменить" %}</a>
           <br>
-          <a href="{% url 'delete_status' %}">{% translate "Удалить" %}</a>
+          <a href="{% url 'delete_status' status.id %}">{% translate "Удалить" %}</a>
         </td>
       </tr>
     {% endfor %}

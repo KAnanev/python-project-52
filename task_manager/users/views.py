@@ -1,9 +1,11 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView
 
-from task_manager.mixins import AuthRequiredMixin, UserPermissionMixin
+from task_manager.mixins import (
+    AuthRequiredMixin, UserPermissionMixin, DeleteViewMixin
+)
 from task_manager.users.forms import UserForm
 from task_manager.users.models import User
 
@@ -55,10 +57,9 @@ class UserDeleteView(
     AuthRequiredMixin,
     UserPermissionMixin,
     SuccessMessageMixin,
-    DeleteView,
+    DeleteViewMixin,
 ):
     model = User
-    template_name = 'users_confirm_delete.html'
 
     success_url = reverse_lazy('users')
     permission_url = reverse_lazy('users')
@@ -71,8 +72,3 @@ class UserDeleteView(
     extra_context = {
         'button_text': _('Да, удалить'),
     }
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['desc'] = _(f'Вы уверены, что хотите удалить {self.object}')
-        return context

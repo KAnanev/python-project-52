@@ -1,4 +1,3 @@
-import pytest
 from django.urls import reverse
 
 from task_manager.statuses.models import TaskStatus
@@ -7,11 +6,6 @@ URL = reverse('statuses')
 CREATE_STATUSES_URL = reverse('create_status')
 
 STATUS = 'Выполнено'
-
-
-@pytest.fixture
-def status_in_db(db):
-    TaskStatus.objects.create(name='В работе')
 
 
 def test_without_login_statuses_view(client):

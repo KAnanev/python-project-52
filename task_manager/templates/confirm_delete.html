@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block title %}{{ title }}{% endblock %}
+{% block name_page %}{{ title }}{% endblock %}
+{% block content %}
+<p>{{ desc }}</p>
+<form method="post">
+{% csrf_token %}
+    {% bootstrap_button button_text button_type="submit" button_class="btn btn-danger" %}
+</form>
+{% endblock %}
