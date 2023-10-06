@@ -16,26 +16,23 @@ class TaskStatusesView(AuthRequiredMixin, ListView):
     }
 
 
-class TaskStatusCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
+class TaskStatusMixin(SuccessMessageMixin, AuthRequiredMixin):
     model = TaskStatus
     fields = ('name',)
     template_name = 'form.html'
     success_url = reverse_lazy('statuses')
-    success_message = _('Статус успешно создан')
 
+
+class TaskStatusCreateView(TaskStatusMixin, CreateView):
+    success_message = _('Статус успешно создан')
     extra_context = {
         'title': _('Создать статус'),
         'button_text': _('Создать'),
     }
 
 
-class TaskStatusUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
-    model = TaskStatus
-    fields = ('name',)
-    template_name = 'form.html'
-    success_url = reverse_lazy('statuses')
+class TaskStatusUpdateView(TaskStatusMixin, UpdateView):
     success_message = _('Статус успешно изменен')
-
     extra_context = {
         'title': _('Изменение статуса'),
         'button_text': _('Изменить'),
