@@ -2,6 +2,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic.base import ContextMixin
+
+from dataclasses import dataclass
 
 from task_manager.mixins import AuthRequiredMixin, DeleteViewMixin
 from task_manager.statuses.models import TaskStatus
@@ -16,7 +19,7 @@ class TaskStatusesView(AuthRequiredMixin, ListView):
     }
 
 
-class TaskStatusBaseView(SuccessMessageMixin, AuthRequiredMixin):
+class TaskStatusBaseView(SuccessMessageMixin, AuthRequiredMixin, ContextMixin):
     model = TaskStatus
     fields = ('name',)
     template_name = 'form.html'
@@ -30,7 +33,7 @@ class TaskStatusBaseView(SuccessMessageMixin, AuthRequiredMixin):
         return self.success_message
 
     def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, ** kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = self.title
         context['button_text'] = self.button_text
         return context
