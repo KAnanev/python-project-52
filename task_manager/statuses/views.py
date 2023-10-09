@@ -1,7 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, UpdateView
-from django.utils.translation import gettext as _
 
 from task_manager.mixins import AuthRequiredMixin, DeleteViewMixin
 from task_manager.statuses.models import TaskStatus
@@ -16,32 +16,39 @@ class TaskStatusesView(AuthRequiredMixin, ListView):
     }
 
 
-class TaskStatusMixin(SuccessMessageMixin, AuthRequiredMixin):
+class TaskStatusBaseView(SuccessMessageMixin, AuthRequiredMixin):
     model = TaskStatus
     fields = ('name',)
     template_name = 'form.html'
     success_url = reverse_lazy('statuses')
 
+    success_message = None
+    title = None
+    button_text = None
 
-class TaskStatusCreateView(TaskStatusMixin, CreateView):
+    def get_success_message(self, cleaned_data):
+        return self.success_message
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, ** kwargs)
+        context['title'] = self.title
+        context['button_text'] = self.button_text
+        return context
+
+
+class TaskStatusCreateView(TaskStatusBaseView, CreateView):
     success_message = _('Статус успешно создан')
-    extra_context = {
-        'title': _('Создать статус'),
-        'button_text': _('Создать'),
-    }
+    title = _('Создать статус')
+    button_text = _('Создать')
 
 
-class TaskStatusUpdateView(TaskStatusMixin, UpdateView):
+class TaskStatusUpdateView(TaskStatusBaseView, UpdateView):
     success_message = _('Статус успешно изменен')
-    extra_context = {
-        'title': _('Изменение статуса'),
-        'button_text': _('Изменить'),
-    }
+    title = _('Изменение статуса')
+    button_text = _('Изменить')
 
 
-class TaskStatusDeleteView(TaskStatusMixin, DeleteViewMixin):
+class TaskStatusDeleteView(TaskStatusBaseView, DeleteViewMixin):
     success_message = _('Статус успешно удален')
-    extra_context = {
-        'title': _('Удаление статуса'),
-        'button_text': _('Да, удалить'),
-    }
+    title = _('Удаление статуса')
+    button_text = _('Да, удалить')
