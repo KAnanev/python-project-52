@@ -1,10 +1,9 @@
 from django.urls import reverse
 
 
-class TestViewTasks:
-
-    url = reverse('tasks')
-    title = 'Задачи'
+class BaseTask:
+    url = None
+    title = None
 
     def test_view_tasks_without_login(self, client):
         response = client.get(self.url)
@@ -18,3 +17,17 @@ class TestViewTasks:
         assert f'<title>{self.title}</title>' in response.content.decode('utf8')
 
 
+class TestViewTasks(BaseTask):
+    url = reverse('tasks')
+    title = 'Задачи'
+
+
+class TestCreateTask(BaseTask):
+    url = reverse('create_tasks')
+    title = 'Создать задачу'
+
+    def test_create_task_without_login(self, client):
+        super().test_view_tasks_without_login(client)
+
+    def test_create_task_with_login(self, client_with_login_test_user_1, client):
+        super().test_view_tasks_with_login(client_with_login_test_user_1, client)
