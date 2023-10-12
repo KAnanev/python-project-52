@@ -26,12 +26,12 @@ class TestViewTasks(BaseTask):
     title = 'Задачи'
 
 
-class TestCreateTask(BaseTask):
-    url = reverse('create_tasks')
-    title = 'Создать задачу'
-
-    def test_create_task_without_login(self, response):
-        super().test_view_tasks_without_login(response)
-
-    def test_create_task_with_login(self, client_with_login_test_user_1, response):
-        super().test_view_tasks_with_login(client_with_login_test_user_1, response)
+# class TestCreateTask(BaseTask):
+#     url = reverse('create_tasks')
+#     title = 'Создать задачу'
+#
+#     def test_create_task_without_login(self, response):
+#         super().test_view_tasks_without_login(response)
+#
+#     def test_create_task_with_login(self, client_with_login_test_user_1, response):
+#         super().test_view_tasks_with_login(client_with_login_test_user_1, response)

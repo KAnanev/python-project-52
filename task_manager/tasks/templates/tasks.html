@@ -7,25 +7,25 @@
 <table class="table table-striped">
   <thead>
     <tr>
-        {% for head in object_heads %}
+        {% for head in object_table_head %}
         <th>{{ head }}</th>
         {% endfor %}
     </tr>
   </thead>
   <tbody>
-{#    {% for user in object_list %}#}
-{#      <tr>#}
-{#        <td>{{ user.id }}</td>#}
-{#        <td>{{ user.username }}</td>#}
-{#        <td>{{ user.get_full_name }}</td>#}
-{#        <td>{{ user.date_joined|date:'d.m.Y H:i' }}</td>#}
-{#        <td>#}
+    {% for user in object_list %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.date_joined|date:'d.m.Y H:i' }}</td>
+        <td>
 {#          <a href="{% url 'update_user' user.id %}">{% translate "Изменить" %}</a>#}
 {#          <br>#}
 {#          <a href="{% url 'delete_user' user.id %}">{% translate "Удалить" %}</a>#}
-{#        </td>#}
-{#      </tr>#}
-{#    {% endfor %}#}
+        </td>
+      </tr>
+    {% endfor %}
 
   </tbody>
 </table>
