@@ -3,7 +3,7 @@ from django.urls import reverse
 from task_manager.statuses.models import TaskStatus
 
 
-def test_get_delete_status(status_in_db, client_with_login_test_user_1, client):
+def test_get_delete_status(status_in_db, login_test_user_1, client):
     status = TaskStatus.objects.first()
     response = client.get(reverse('delete_status', kwargs={'pk': status.pk}))
 
@@ -14,7 +14,7 @@ def test_get_delete_status(status_in_db, client_with_login_test_user_1, client):
     assert 'class="btn btn-danger"' in response.content.decode('utf8')
 
 
-def test_post_delete_status(status_in_db, client_with_login_test_user_1, client):
+def test_post_delete_status(status_in_db, login_test_user_1, client):
     status = TaskStatus.objects.first()
     response = client.post(
         reverse('delete_status', kwargs={'pk': status.pk}),

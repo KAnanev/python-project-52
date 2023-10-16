@@ -43,10 +43,10 @@ class TestCreateTask(BaseTask):
     def test_create_task_without_login(self, response):
         super().test_view_tasks_without_login(response)
 
-    def test_create_task_with_login(self, client_with_login_test_user_1, response):
-        super().test_view_tasks_with_login(client_with_login_test_user_1, response)
+    def test_create_task_with_login(self, login_test_user_1, response):
+        super().test_view_tasks_with_login(login_test_user_1, response)
 
-    def test_post_create(self, client_with_login_test_user_1, status_in_db, post_response):
+    def test_post_create(self, login_test_user_1, status_in_db, post_response):
         status = TaskStatus.objects.first()
         user = User.objects.first()
         response = post_response(

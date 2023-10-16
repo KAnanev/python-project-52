@@ -20,7 +20,7 @@ def test_without_login_statuses_view(client):
     assert 'Вы не авторизованы! Пожалуйста, выполните вход.' in message.message
 
 
-def test_status_view(status_in_db, client_with_login_test_user_1, client):
+def test_status_view(status_in_db, login_test_user_1, client):
 
     response = client.get(URL)
 
@@ -30,7 +30,7 @@ def test_status_view(status_in_db, client_with_login_test_user_1, client):
     assert 'В работе' in response.content.decode('utf8')
 
 
-def test_get_create_status_view(client_with_login_test_user_1, client):
+def test_get_create_status_view(login_test_user_1, client):
 
     response = client.get(CREATE_STATUSES_URL)
     assert response.status_code == 200
@@ -38,7 +38,7 @@ def test_get_create_status_view(client_with_login_test_user_1, client):
     assert '<title>Создать статус</title>' in response.content.decode('utf8')
 
 
-def test_post_create_status_view(client_with_login_test_user_1, client):
+def test_post_create_status_view(login_test_user_1, client):
 
     response = client.post(CREATE_STATUSES_URL, {'name': STATUS}, follow=True)
     message = list(response.context.get('messages'))[0]
@@ -48,7 +48,7 @@ def test_post_create_status_view(client_with_login_test_user_1, client):
     assert 'Статус успешно создан' in message.message
 
 
-def test_get_update_status_view(status_in_db, client_with_login_test_user_1, client):
+def test_get_update_status_view(status_in_db, login_test_user_1, client):
     status = TaskStatus.objects.first()
     response = client.get(reverse('update_status', kwargs={'pk': status.pk}))
 
@@ -58,7 +58,7 @@ def test_get_update_status_view(status_in_db, client_with_login_test_user_1, cli
     assert status.name in response.content.decode('utf8')
 
 
-def test_post_update_status_view(status_in_db, client_with_login_test_user_1, client):
+def test_post_update_status_view(status_in_db, login_test_user_1, client):
 
     status = TaskStatus.objects.first()
     response = client.post(
