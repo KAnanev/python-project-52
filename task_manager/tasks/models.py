@@ -33,6 +33,8 @@ class Task(models.Model):
 
     executor = models.ForeignKey(
         User,
+        blank=True,
+        null=True,
         on_delete=models.PROTECT,
         related_name='executor',
         verbose_name=_('Исполнитель')

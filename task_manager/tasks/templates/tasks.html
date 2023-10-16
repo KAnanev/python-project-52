@@ -14,12 +14,14 @@
     </tr>
   </thead>
   <tbody>
-    {% for user in object_list %}
+    {% for task in object_list %}
       <tr>
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.get_full_name }}</td>
-        <td>{{ user.date_joined|date:'d.m.Y H:i' }}</td>
+        <td>{{ task.id }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.status }}</td>
+          <td>{{ task.author }}</td>
+          <td>{{ task.executor|default:"" }}</td>
+        <td>{{ task.created_at|date:'d.m.Y H:i' }}</td>
         <td>
 {#          <a href="{% url 'update_user' user.id %}">{% translate "Изменить" %}</a>#}
 {#          <br>#}

@@ -6,11 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 from task_manager.mixins import AuthRequiredMixin
 from task_manager.tasks.models import Task
+from task_manager.users.models import User
 
 
 class TasksView(AuthRequiredMixin, ListView):
     model = Task
-    login_url = 'login'
     template_name = 'tasks.html'
 
     extra_context = {
@@ -23,9 +23,8 @@ class TasksView(AuthRequiredMixin, ListView):
 
 class TaskBaseView(SuccessMessageMixin, AuthRequiredMixin, ContextMixin):
     model = Task
-    fields = ('name',)
     template_name = 'form.html'
-    success_url = reverse_lazy('statuses')
+    success_url = reverse_lazy('tasks')
 
     success_message = None
     title = None
@@ -42,7 +41,14 @@ class TaskBaseView(SuccessMessageMixin, AuthRequiredMixin, ContextMixin):
 
 
 class TaskCreateView(TaskBaseView, CreateView):
-    fields = '__all__'
+
+    fields = ('name', 'description', 'status', 'executor')
+
     success_message = _('Задача успешно создана')
     title = _('Создать задачу')
     button_text = _('Создать')
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.author = User.objects.get(pk=user.pk)
+        return super().form_valid(form)
