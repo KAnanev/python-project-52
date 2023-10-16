@@ -1,6 +1,10 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.statuses.models import TaskStatus
+from task_manager.tasks.models import Task
+from task_manager.users.models import User
+
 
 class BaseTask:
     url = None
@@ -9,6 +13,12 @@ class BaseTask:
     @pytest.fixture
     def response(self, client):
         return client.get(self.url)
+
+    @pytest.fixture
+    def post_response(self, client):
+        def inner(*args, **kwargs):
+            return client.post(*args, **kwargs)
+        return inner
 
     @staticmethod
     def test_view_tasks_without_login(response):
@@ -35,3 +45,24 @@ class TestCreateTask(BaseTask):
 
     def test_create_task_with_login(self, client_with_login_test_user_1, response):
         super().test_view_tasks_with_login(client_with_login_test_user_1, response)
+
+    def test_post_create(self, client_with_login_test_user_1, status_in_db, post_response):
+        status = TaskStatus.objects.first()
+        user = User.objects.first()
+        response = post_response(
+            self.url, {
+                'name': 'Задача',
+                'status': status.pk,
+                'executor': user.pk,
+            }
+            , follow=True
+        )
+
+        assert response.status_code == 200
+
+        task = Task.objects.first()
+        assert task.status == status
+        assert task.executor == user
+
+        message = list(response.context.get('messages'))[0]
+        assert 'Задача успешно создана' in message.message
