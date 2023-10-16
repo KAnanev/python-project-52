@@ -1,6 +1,4 @@
 import pytest
-from django.urls import reverse
-
 from task_manager.statuses.models import TaskStatus
 
 

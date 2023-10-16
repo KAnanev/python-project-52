@@ -12,15 +12,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='TaskStatus',
+            name='Task',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50, unique=True, verbose_name='Имя')),
+                ('description', models.TextField(blank=True, max_length=1000, verbose_name='Описание')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
             ],
             options={
-                'verbose_name': 'Статус',
-                'verbose_name_plural': 'Статусы',
+                'verbose_name': 'Задача',
+                'verbose_name_plural': 'Задачи',
             },
         ),
     ]
