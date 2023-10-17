@@ -25,7 +25,7 @@ class BaseTask:
         assert response.status_code == 302
         assert response['Location'] == reverse('login')
 
-    def test_view_tasks_with_login(self, client_with_login_test_user_1, response):
+    def test_view_tasks_with_login(self, login_test_user_1, response):
         assert response.status_code == 200
         assert response.context['title'] == self.title
         assert f'<title>{self.title}</title>' in response.content.decode('utf8')
