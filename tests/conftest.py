@@ -10,7 +10,7 @@ def create_user(db, django_user_model):
 
 
 @pytest.fixture
-def create_test_user_1(create_user):
+def test_user_1(create_user):
     return create_user(
         username='test_user_1',
         first_name='test_first_name_1',
@@ -20,7 +20,7 @@ def create_test_user_1(create_user):
 
 
 @pytest.fixture
-def create_test_user_2(create_user):
+def test_user_2(create_user):
     return create_user(
         username='test_user_2',
         first_name='test_first_name_2',
@@ -30,7 +30,7 @@ def create_test_user_2(create_user):
 
 
 @pytest.fixture
-def client_with_login_test_user_1(client, create_test_user_1):
+def login_test_user_1(client, test_user_1):
     client.login(
         username='test_user_1', password='test_pass'
     )

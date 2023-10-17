@@ -10,9 +10,9 @@ def response_home(client):
 
 
 @pytest.fixture
-def response_login_home(client_with_login_test_user_1):
+def response_login_home(login_test_user_1):
     url_ = reverse('home')
-    response = client_with_login_test_user_1.get(url_)
+    response = login_test_user_1.get(url_)
     return response
 
 
