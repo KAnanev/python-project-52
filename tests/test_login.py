@@ -15,15 +15,17 @@ def test_login_view(client):
     assert '<button class="btn btn-primary" type="submit">Войти</button>' in response.content.decode('utf8')
 
 
-def test_login(client, test_user_1):
+def test_login(user_a, client, login_user_a):
     """Пользователь залогинился."""
 
     response = client.post(
         reverse('login'),
         {
-            'username': 'test_user_1',
-            'password': 'test_pass',
-        }, follow=True)
+            'username': user_a['username'],
+            'password': user_a['password1'],
+        },
+        follow=True
+    )
 
     message = list(response.context.get('messages'))[0]
 
@@ -32,7 +34,7 @@ def test_login(client, test_user_1):
     assert response.templates[0].name == 'index.html'
 
 
-def test_logout(client, login_test_user_1):
+def test_logout(client, login_user_a):
     """Пользователь разлогинился."""
 
     response = client.post(reverse('logout'), follow=True)
