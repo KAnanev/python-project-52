@@ -1,57 +1,62 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.users.models import User
+from tests.conftest import BaseTest
 
-class TestViewUserUpdate:
 
-    @pytest.fixture
-    def get_update_user_url(self, client):
-        def inner(pk, **kwargs):
-            return client.get(reverse('update_user', kwargs={'pk': pk}), **kwargs)
+class BaseTestUserUpdate(BaseTest):
+    view_name = 'update_user'
 
-        return inner
 
-    def test_no_auth_update_view(self, test_user_1, get_update_user_url):
+class TestViewUserUpdate(BaseTestUserUpdate):
+
+    def test_no_auth_update_view(self, create_user_a, client_get):
         """Неавторизованный пользователь переадресован на страницу авторизации."""
-        response = get_update_user_url(test_user_1.pk)
+
+        response = client_get(pk=create_user_a.pk)
         assert response.status_code == 302
         assert response.url == reverse('login')
 
-        response = get_update_user_url(test_user_1.pk, follow=True)
-        message = list(response.context.get('messages'))[0]
-
+        response = client_get(pk=create_user_a.pk, follow=True)
         assert response.status_code == 200
+
+        message = list(response.context.get('messages'))[0]
         assert 'Вы не авторизованы! Пожалуйста, выполните вход.' in message.message
 
-    def test_auth_update_view(self, login_test_user_1, test_user_1, get_update_user_url):
+    def test_auth_update_view(self, login_user_a, create_user_a, client_get):
         """Авторизованный пользователь видит страницу изменения пользователя"""
-        response = get_update_user_url(test_user_1.pk)
 
+        response = client_get(pk=create_user_a.pk)
         assert response.status_code == 200
         assert response.context['title'] == "Изменение пользователя"
 
 
-class TestPostUserUpdate:
+class TestPostUserUpdate(BaseTestUserUpdate):
 
-    def test_update_user(self, client, login_test_user_1, test_user_1):
+    @pytest.fixture
+    def update_user_a(self, user_a):
+        user_a['username'] = 'new_name'
+        return user_a
+
+    def test_update_user(self, update_user_a, client_post, login_user_a, create_user_a):
         """Пользователь изменяет свои данные"""
-        url = reverse('update_user', kwargs={'pk': test_user_1.pk})
-        response = client.post(url, {'name': 'change_name'}, follow=True)
+
+        response = client_post(pk=create_user_a.pk, data=update_user_a, follow=True)
+        user = User.objects.first()
+
+        assert response.status_code == 200
+        assert not response.context['form'].errors
+        assert update_user_a['username'] == user.username
+
+    def test_update_user_another_user(self, update_user_a, client_post, login_user_b, create_user_a, create_user_b):
+        """Пользователь может изменять только свои данные"""
+
+        response = client_post(pk=create_user_a.pk, data=update_user_a, follow=True)
         assert response.status_code == 200
 
+        user = User.objects.get(pk=create_user_a.pk)
+        assert user.username == update_user_a.get('username')
 
-
-def test_login_update_user(login_test_user_1, test_user_2, test_user_1):
-    """Авторизованный пользователь может изменять только свои данные."""
-
-    url = reverse('update_user', kwargs={'pk': test_user_2.pk})
-    response = login_test_user_1.get(url, follow=True)
-
-    message = list(response.context.get('messages'))[0]
-
-    assert 'У вас нет прав для изменения другого пользователя.' in message.message
-
-    url = reverse('update_user', kwargs={'pk': test_user_1.pk})
-    response = login_test_user_1.get(url, follow=True)
-
-    assert response.context['title'] == "Изменение пользователя"
+        message = list(response.context.get('messages'))[0]
+        assert 'У вас нет прав для изменения другого пользователя.' in message.message

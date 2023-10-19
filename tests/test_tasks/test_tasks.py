@@ -25,7 +25,7 @@ class BaseTask:
         assert response.status_code == 302
         assert response['Location'] == reverse('login')
 
-    def test_view_tasks_with_login(self, login_test_user_1, response):
+    def test_view_tasks_with_login(self, login_user_a, response):
         assert response.status_code == 200
         assert response.context['title'] == self.title
         assert f'<title>{self.title}</title>' in response.content.decode('utf8')
@@ -43,10 +43,10 @@ class TestCreateTask(BaseTask):
     def test_create_task_without_login(self, response):
         super().test_view_tasks_without_login(response)
 
-    def test_create_task_with_login(self, login_test_user_1, response):
-        super().test_view_tasks_with_login(login_test_user_1, response)
+    def test_create_task_with_login(self, login_user_a, response):
+        super().test_view_tasks_with_login(login_user_a, response)
 
-    def test_post_create(self, login_test_user_1, status_in_db, post_response):
+    def test_post_create(self, login_user_a, status_in_db, post_response):
         status = TaskStatus.objects.first()
         user = User.objects.first()
         response = post_response(

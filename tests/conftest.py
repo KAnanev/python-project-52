@@ -1,5 +1,29 @@
 import pytest
+from django.urls import reverse
+
 from task_manager.statuses.models import TaskStatus
+
+
+@pytest.fixture
+def user_a():
+    return {
+        'username': 'user_a',
+        'first_name': 'first_name_a',
+        'last_name': 'last_name_a',
+        'password1': 'pass',
+        'password2': 'pass',
+    }
+
+
+@pytest.fixture
+def user_b():
+    return {
+        'username': 'test_user_b',
+        'first_name': 'test_first_name_b',
+        'last_name': 'test_last_name_b',
+        'password1': 'pass',
+        'password2': 'pass',
+    }
 
 
 @pytest.fixture
@@ -10,33 +34,50 @@ def create_user(db, django_user_model):
 
 
 @pytest.fixture
-def test_user_1(create_user):
-    return create_user(
-        username='test_user_1',
-        first_name='test_first_name_1',
-        last_name='test_last_name_1',
-        password='test_pass',
-    )
+def create_user_a(user_a, create_user):
+    return create_user(username=user_a.get('username'), password=user_a.get('password1'))
 
 
 @pytest.fixture
-def test_user_2(create_user):
-    return create_user(
-        username='test_user_2',
-        first_name='test_first_name_2',
-        last_name='test_last_name_2',
-        password='test_pass',
-    )
+def create_user_b(user_b, create_user):
+    return create_user(username=user_b.get('username'), password=user_b.get('password1'))
 
 
 @pytest.fixture
-def login_test_user_1(client, test_user_1):
-    client.login(
-        username='test_user_1', password='test_pass'
-    )
-    return client
+def login_user_a(client, create_user_a):
+    return client.force_login(create_user_a)
+
+
+@pytest.fixture
+def login_user_b(client, create_user_b):
+    return client.force_login(create_user_b)
 
 
 @pytest.fixture
 def status_in_db(db):
-    TaskStatus.objects.create(name='В работе')
+    return TaskStatus.objects.create(name='В работе')
+
+
+class BaseTest:
+
+    view_name = None
+
+    def get_url(self, *args, **kwargs):
+        return reverse(viewname=self.view_name, args=args, kwargs=kwargs)
+
+    @pytest.fixture
+    def client_get(self, client):
+        def inner(**kwargs):
+            if kwargs.get('pk'):
+                return client.get(self.get_url(kwargs.pop('pk')), **kwargs)
+            return client.get(self.get_url(), **kwargs)
+
+        return inner
+
+    @pytest.fixture
+    def client_post(self, client):
+        def inner(**kwargs):
+            if kwargs.get('pk'):
+                return client.post(self.get_url(kwargs.pop('pk')), **kwargs)
+            return client.post(self.get_url(), **kwargs)
+        return inner
