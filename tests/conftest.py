@@ -1,4 +1,6 @@
 import pytest
+from django.urls import reverse
+
 from task_manager.statuses.models import TaskStatus
 
 
@@ -53,4 +55,29 @@ def login_user_b(client, create_user_b):
 
 @pytest.fixture
 def status_in_db(db):
-    TaskStatus.objects.create(name='В работе')
+    return TaskStatus.objects.create(name='В работе')
+
+
+class BaseTest:
+
+    view_name = None
+
+    def get_url(self, *args, **kwargs):
+        return reverse(viewname=self.view_name, args=args, kwargs=kwargs)
+
+    @pytest.fixture
+    def client_get(self, client):
+        def inner(**kwargs):
+            if kwargs.get('pk'):
+                return client.get(self.get_url(kwargs.pop('pk')), **kwargs)
+            return client.get(self.get_url(), **kwargs)
+
+        return inner
+
+    @pytest.fixture
+    def client_post(self, client):
+        def inner(**kwargs):
+            if kwargs.get('pk'):
+                return client.post(self.get_url(kwargs.pop('pk')), **kwargs)
+            return client.post(self.get_url(), **kwargs)
+        return inner

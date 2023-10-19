@@ -1,8 +1,8 @@
 from task_manager.users.models import User
-from tests.test_users.conftest import BaseTestUser
+from tests.conftest import BaseTest
 
 
-class BaseTestUserDelete(BaseTestUser):
+class BaseTestUserDelete(BaseTest):
     view_name = 'delete_user'
 
 

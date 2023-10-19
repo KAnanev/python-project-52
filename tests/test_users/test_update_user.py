@@ -2,10 +2,10 @@ import pytest
 from django.urls import reverse
 
 from task_manager.users.models import User
-from tests.test_users.conftest import BaseTestUser
+from tests.conftest import BaseTest
 
 
-class BaseTestUserUpdate(BaseTestUser):
+class BaseTestUserUpdate(BaseTest):
     view_name = 'update_user'
 
 
