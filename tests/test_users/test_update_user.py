@@ -2,23 +2,14 @@ import pytest
 from django.urls import reverse
 
 from task_manager.users.models import User
+from tests.test_users.conftest import BaseTestUser
 
 
-class BaseTestUserUpdate:
+class BaseTestUserUpdate(BaseTestUser):
     view_name = 'update_user'
-
-    def get_url(self, *args, **kwargs):
-        return reverse(viewname=self.view_name, args=args, kwargs=kwargs)
 
 
 class TestViewUserUpdate(BaseTestUserUpdate):
-
-    @pytest.fixture
-    def client_get(self, client):
-        def inner(**kwargs):
-            return client.get(self.get_url(kwargs.pop('pk')), **kwargs)
-
-        return inner
 
     def test_no_auth_update_view(self, create_user_a, client_get):
         """Неавторизованный пользователь переадресован на страницу авторизации."""
@@ -37,19 +28,11 @@ class TestViewUserUpdate(BaseTestUserUpdate):
         """Авторизованный пользователь видит страницу изменения пользователя"""
 
         response = client_get(pk=create_user_a.pk)
-
         assert response.status_code == 200
         assert response.context['title'] == "Изменение пользователя"
 
 
 class TestPostUserUpdate(BaseTestUserUpdate):
-
-    @pytest.fixture
-    def client_post(self, client):
-        def inner(**kwargs):
-            return client.post(self.get_url(kwargs.pop('pk')), **kwargs)
-
-        return inner
 
     @pytest.fixture
     def update_user_a(self, user_a):
@@ -60,7 +43,6 @@ class TestPostUserUpdate(BaseTestUserUpdate):
         """Пользователь изменяет свои данные"""
 
         response = client_post(pk=create_user_a.pk, data=update_user_a, follow=True)
-
         user = User.objects.first()
 
         assert response.status_code == 200
