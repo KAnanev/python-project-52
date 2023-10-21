@@ -1,5 +1,5 @@
 from task_manager.users.models import User
-from tests.conftest import BaseTest
+from tests.functional.conftest import BaseTest
 
 
 class BaseTestUserDelete(BaseTest):

@@ -1,7 +1,5 @@
-from django.urls import reverse
-
 from task_manager.statuses.models import TaskStatus
-from tests.conftest import BaseTest, BaseViewTest
+from tests.functional.conftest import BaseTest, BaseViewTest
 
 
 class TestStatusesView(BaseViewTest, BaseTest):
