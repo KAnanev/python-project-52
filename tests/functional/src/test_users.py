@@ -1,7 +1,3 @@
-from task_manager.users.models import User
-from tests.functional.conftest import BaseTest
-
-
 import pytest
 from django.urls import reverse
 
@@ -66,12 +62,11 @@ class TestPostUserUpdate(BaseTestUserUpdate):
         assert 'У вас нет прав для изменения другого пользователя.' in message.message
 
 
-
 class BaseTestUserDelete(BaseTest):
     view_name = 'delete_user'
 
 
-class TestViewUserUpdate(BaseTestUserDelete):
+class TestViewUserDelete(BaseTestUserDelete):
 
     def test_without_login_delete_user(self, client_post, create_user_a):
         """Неавторизованный пользователь не может удалять пользователей."""
@@ -81,7 +76,7 @@ class TestViewUserUpdate(BaseTestUserDelete):
         assert response.status_code == 200
         assert 'Вы не авторизованы! Пожалуйста, выполните вход.' in message.message
 
-    def test_login_delete_user(self, login_user_a, client_post,  create_user_a, create_user_b):
+    def test_login_delete_user(self, login_user_a, client_post, create_user_a, create_user_b):
         """Авторизованный пользователь может удалять только свои данные."""
 
         response = client_post(pk=create_user_b.pk, follow=True)
