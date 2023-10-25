@@ -1,20 +1,34 @@
+import pytest
 from django.urls import reverse
 from django.contrib.sessions.models import Session
+from django.test import TestCase
+
+from task_manager.users.models import User
 
 
-class TestAuth:
+class TestAuth(TestCase):
+
+    fixtures = ['tests/functional/fixtures/users.json']
 
     LOGIN_URL = reverse('login')
     LOGOUT_URL = reverse('logout')
 
-    def test_login_view(self, client):
+    @pytest.fixture
+    def client(self, client):
+        return client
+
+
+    def test_login_view(self):
         """Тест страницы входа."""
 
-        response = client.get(self.LOGIN_URL)
+        response = self.client.get(self.LOGIN_URL)
         assert response.status_code == 200
         assert response.context['title'] == 'Вход'
         assert '<title>Вход</title>' in response.content.decode('utf8')
         assert '<button class="btn btn-primary" type="submit">Войти</button>' in response.content.decode('utf8')
+
+        users = User.objects.all()
+        assert users.count() == 2
 
     def test_login(self, user_a, client, create_user_a):
         """Пользователь залогинился."""
