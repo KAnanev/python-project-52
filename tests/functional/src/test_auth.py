@@ -1,22 +1,13 @@
-import pytest
 from django.urls import reverse
 from django.contrib.sessions.models import Session
 
+from tests.functional.conftest import TestUserMixin
 
-class TestAuth:
+
+class TestAuth(TestUserMixin):
 
     LOGIN_URL = reverse('login')
     LOGOUT_URL = reverse('logout')
-
-    TEST_USER_NAME = 'test_user'
-    TEST_PASS = 'test_pass'
-
-    @pytest.fixture
-    def test_user_create(self, django_user_model):
-        return django_user_model.objects.create_user(
-            username=self.TEST_USER_NAME,
-            password=self.TEST_PASS
-        )
 
     def test_login_view(self, client):
         """Тест страницы входа."""
