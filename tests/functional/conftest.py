@@ -11,11 +11,19 @@ class TestUserMixin:
     TEST_PASS = 'test_pass'
 
     @pytest.fixture
-    def test_user_create(self, django_user_model):
-        return django_user_model.objects.create_user(
-            username=self.TEST_USER_NAME,
-            password=self.TEST_PASS
-        )
+    def test_user(self):
+        return {
+            'username': self.TEST_USER_NAME,
+            'password': self.TEST_PASS,
+        }
+
+    @pytest.fixture
+    def create_test_user(self, test_user, django_user_model):
+        return django_user_model.objects.create_user(**test_user)
+
+    @pytest.fixture
+    def login_test_user(self, test_user, create_test_user, client):
+        return client.login(**test_user)
 
 
 @pytest.fixture

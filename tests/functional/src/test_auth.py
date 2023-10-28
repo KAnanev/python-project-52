@@ -18,7 +18,7 @@ class TestAuth(TestUserMixin):
         assert '<title>Вход</title>' in response.content.decode('utf8')
         assert '<button class="btn btn-primary" type="submit">Войти</button>' in response.content.decode('utf8')
 
-    def test_login(self, test_user_create, client):
+    def test_login(self, create_test_user, client):
         """Пользователь может авторизоваться."""
 
         response = client.post(
@@ -35,10 +35,8 @@ class TestAuth(TestUserMixin):
         assert 'Вы залогинены' in message.message
         assert Session.objects.count() == 1
 
-    def test_logout(self, test_user_create, client):
+    def test_logout(self, login_test_user, client):
         """Пользователь может выйти."""
-
-        client.login(username=self.TEST_USER_NAME, password=self.TEST_PASS)
 
         response = client.post(self.LOGOUT_URL, follow=True)
         message = list(response.context.get('messages'))[0]
