@@ -1,5 +1,27 @@
+from django.urls import reverse
+
 from task_manager.statuses.models import TaskStatus
 from tests.functional.conftest import BaseTest, BaseViewTest
+
+
+class TestStatuses:
+
+    def test_statuses_view(self, client):
+
+        url = reverse('statuses')
+
+        response = client.get(url)
+        assert response.status_code == 302
+        assert response.url == reverse('login')
+
+        response = client.get(url, follow=True)
+        assert response.status_code == 200
+        assert response.url == url
+        assert response.context['title'] == 'Статусы'
+
+
+
+
 
 
 class TestStatusesView(BaseViewTest, BaseTest):
