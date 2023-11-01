@@ -2,7 +2,6 @@ import pytest
 from django.urls import reverse
 
 from task_manager.statuses.models import TaskStatus
-from task_manager.tasks.models import Task
 
 
 class TestUserMixin:
@@ -26,33 +25,12 @@ class TestUserMixin:
         return client.login(**test_user)
 
 
-@pytest.fixture
-def status_data():
-    return {
-        'name': 'В работе',
-    }
+class TestStatusesMixin:
+    TEST_STATUS_NAME = 'test_status'
 
-
-@pytest.fixture
-def create_status(db, status_data):
-    status = TaskStatus.objects.create(name=status_data['name'])
-    return status
-
-
-@pytest.fixture
-def task_data(create_user_a, create_status):
-    return {
-        'name': 'Написать письмо',
-        'description': 'Написать содержательное письмо',
-        'status': create_status.pk,
-        'executor': create_user_a.pk,
-    }
-
-
-@pytest.fixture
-def create_task(db, task_data):
-    task = Task.objects.create(**task_data)
-    return task
+    @pytest.fixture
+    def create_test_status(self, db):
+        return TaskStatus.objects.create(name=self.TEST_STATUS_NAME)
 
 
 class BaseTest:
