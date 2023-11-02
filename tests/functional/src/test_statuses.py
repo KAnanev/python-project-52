@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 
+from task_manager.statuses.models import TaskStatus
 from tests.functional.conftest import TestStatusesMixin, TestUserMixin
 
 
@@ -43,29 +44,27 @@ class TestStatusesView(TestStatusesMixin, TestUserMixin):
         assert response.status_code == 404
 
 
-# class TestCreateStatus(BaseTest):
-#     view_name = 'create_status'
-#
-#     def test_get_create_status_view(self, login_user_a, client_get):
-#         """Тест страницы создания статуса."""
-#         response = client_get()
-#
-#         assert response.status_code == 200
-#         assert response.context['title'] == 'Создать статус'
-#         assert '<title>Создать статус</title>' in response.content.decode('utf8')
-#
-#     def test_post_create_status_view(self, login_user_a, client_post):
-#         """Тест создания статуса."""
-#         status_name = 'В работе'
-#
-#         response = client_post(data={'name': status_name}, follow=True)
-#         message = list(response.context.get('messages'))[0]
-#         status = TaskStatus.objects.first()
-#
-#         assert response.status_code == 200
-#         assert 'Статус успешно создан' in message.message
-#         assert status.name == status_name
-#
+class TestCreateStatus(TestUserMixin):
+
+    def test_create_status(self, client, login_test_user):
+        """Статус создается."""
+
+        status_name = 'В работе'
+
+        url = reverse('create_status')
+        response = client.post(url, data={'name': status_name})
+        status = TaskStatus.objects.first()
+
+        assert response.status_code == 302
+        assert response.url == reverse('statuses')
+        assert status.name == status_name
+
+        response = client.post(url, data={'name': status_name}, follow=True)
+        message = list(response.context.get('messages'))[0]
+
+        assert response.status_code == 200
+        assert 'Статус успешно создан' in message.message
+
 #
 # class TestUpdateStatus(BaseTest):
 #     view_name = 'update_status'
