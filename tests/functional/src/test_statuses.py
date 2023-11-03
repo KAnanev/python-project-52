@@ -44,53 +44,46 @@ class TestStatusesView(TestStatusesMixin, TestUserMixin):
         assert response.status_code == 404
 
 
-class TestCreateStatus(TestUserMixin):
+class TestStatusCRUD(TestUserMixin, TestStatusesMixin):
 
     def test_create_status(self, client, login_test_user):
         """Статус создается."""
 
-        status_name = 'В работе'
-
+        new_name = 'new_name'
         url = reverse('create_status')
-        response = client.post(url, data={'name': status_name})
+
+        response = client.post(url, data={'name': new_name})
         status = TaskStatus.objects.first()
 
         assert response.status_code == 302
         assert response.url == reverse('statuses')
-        assert status.name == status_name
+        assert status.name == new_name
 
-        response = client.post(url, data={'name': status_name}, follow=True)
+        response = client.post(url, data={'name': new_name}, follow=True)
         message = list(response.context.get('messages'))[0]
 
         assert response.status_code == 200
         assert 'Статус успешно создан' in message.message
 
-#
-# class TestUpdateStatus(BaseTest):
-#     view_name = 'update_status'
-#
-#     def test_get_update_status_view(self, create_status, login_user_a, client_get):
-#         """Тест страницы обновления статуса."""
-#
-#         response = client_get(pk=create_status.pk)
-#
-#         assert response.status_code == 200
-#         assert response.context['title'] == 'Изменение статуса'
-#         assert '<title>Изменение статуса</title>' in response.content.decode('utf8')
-#
-#     def test_post_update_status_view(self, create_status, login_user_a, client_post):
-#         """Тест обновления статуса."""
-#
-#         update_status_name = 'Выполнено'
-#         response = client_post(pk=create_status.pk, data={'name': update_status_name}, follow=True)
-#
-#         status = TaskStatus.objects.get(pk=create_status.pk)
-#         message = list(response.context.get('messages'))[0]
-#
-#         assert response.status_code == 200
-#         assert status.name == update_status_name
-#         assert status.name in response.content.decode('utf8')
-#         assert 'Статус успешно изменен' in message.message
+    def test_update_status(self, client, login_test_user, create_test_status):
+        """Тест обновления статуса."""
+
+        new_name = 'new_name'
+        status = TaskStatus.objects.first()
+        url = reverse('update_status', kwargs={'pk': status.pk})
+
+        response = client.post(url, data={'name': new_name})
+        status = TaskStatus.objects.first()
+
+        assert response.status_code == 302
+        assert response.url == reverse('statuses')
+        assert status.name == new_name
+
+        response = client.post(url, data={'name': new_name}, follow=True)
+        message = list(response.context.get('messages'))[0]
+
+        assert response.status_code == 200
+        assert 'Статус успешно изменен' in message.message
 #
 #
 # class TestDeleteStatus(BaseTest):
