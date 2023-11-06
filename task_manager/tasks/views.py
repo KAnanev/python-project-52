@@ -1,10 +1,10 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 from django.utils.translation import gettext_lazy as _
 
-from task_manager.mixins import AuthRequiredMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteViewMixin
 from task_manager.tasks.models import Task
 from task_manager.users.models import User
 
@@ -52,3 +52,15 @@ class TaskCreateView(TaskBaseView, CreateView):
         user = self.request.user
         form.instance.author = User.objects.get(pk=user.pk)
         return super().form_valid(form)
+
+
+class TaskUpdateView(TaskBaseView, UpdateView):
+    success_message = _('Задача успешно изменена')
+    title = _('Изменение задачи')
+    button_text = _('Изменить')
+
+
+class TaskDeleteView(TaskBaseView, DeleteViewMixin):
+    success_message = _('Задача успешно удален')
+    title = _('Удаление задачи')
+    button_text = _('Да, удалить')
