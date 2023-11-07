@@ -1,16 +1,18 @@
 import pytest
 from django.urls import reverse
 
+from tests.functional.conftest import TestTasksMixin
 
-class TestTasksView:
+
+class TestTasksView(TestTasksMixin):
     @pytest.mark.parametrize('url',
                              [
                                  reverse('tasks'),
                                  reverse('create_task'),
-                                 #  reverse('update_task', kwargs={'pk': 1}),
-                                 #  reverse('delete_tasks', kwargs={'pk': 1}),
+                                 reverse('update_task', kwargs={'pk': 1}),
+                                 reverse('delete_task', kwargs={'pk': 1}),
                              ])
-    def test_statuses_view_without_login(self, url, client):
+    def test_statuses_view_without_login(self, url, client, create_test_task):
         """Неавторизованный пользователь перенаправляется в login."""
 
         response = client.get(url)
