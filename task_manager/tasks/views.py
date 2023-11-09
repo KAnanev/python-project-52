@@ -49,18 +49,20 @@ class TaskCreateView(TaskBaseView, CreateView):
     button_text = _('Создать')
 
     def form_valid(self, form):
-        user = self.request.user
-        form.instance.author = User.objects.get(pk=user.pk)
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 
 class TaskUpdateView(TaskBaseView, UpdateView):
+
+    fields = ('name', 'description', 'status', 'executor')
+
     success_message = _('Задача успешно изменена')
     title = _('Изменение задачи')
     button_text = _('Изменить')
 
 
 class TaskDeleteView(TaskBaseView, DeleteViewMixin):
-    success_message = _('Задача успешно удален')
+    success_message = _('Задача успешно удалена')
     title = _('Удаление задачи')
     button_text = _('Да, удалить')
