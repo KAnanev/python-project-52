@@ -12,7 +12,7 @@ class TestTasksView(TestTasksMixin):
                                  reverse('update_task', kwargs={'pk': 1}),
                                  reverse('delete_task', kwargs={'pk': 1}),
                              ])
-    def test_statuses_view_without_login(self, url, client, create_test_task):
+    def test_task_view_without_login(self, url, client, create_test_task):
         """Неавторизованный пользователь перенаправляется в login."""
 
         response = client.get(url)
@@ -22,6 +22,29 @@ class TestTasksView(TestTasksMixin):
         response = client.get(url, follow=True)
         assert response.status_code == 200
         assert response.context['title'] == 'Вход'
+
+    @pytest.mark.parametrize(
+        ('url', 'title'),
+        [(reverse('tasks'), 'Задачи'),
+         (reverse('create_task'), 'Создать задачу'),
+         (reverse('update_task', kwargs={'pk': 1}), 'Изменение задачи'),
+         (reverse('delete_task', kwargs={'pk': 1}), 'Удаление задачи'),
+         ])
+    def test_statuses_view_with_login(self, url, title, client, create_test_task, login_test_user):
+        """Авторизованный пользователь видит страницы."""
+
+        response = client.get(url, follow=True)
+        assert response.status_code == 200
+        assert response.context['title'] == title
+
+    @pytest.mark.parametrize('url',
+                             [reverse('update_task', kwargs={'pk': 1}),
+                              reverse('delete_task', kwargs={'pk': 1})])
+    def test_statuses_view_login_without_task(self, url, client, login_test_user):
+        """Не найдено, если нет статусов."""
+
+        response = client.get(url, follow=True)
+        assert response.status_code == 404
 
 # class TestCreateTask(BaseTask):
 #     url = reverse('create_task')
