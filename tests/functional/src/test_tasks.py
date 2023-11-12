@@ -51,7 +51,7 @@ class TestTasksView(TestTasksMixin):
 class TestStatusCRUD(TestTasksMixin):
 
     def test_create_task(self, client, login_test_user, create_test_status, create_test_user):
-        """Статус создается."""
+        """Задача создается."""
 
         new_name = 'new_name'
         url = reverse('create_task')
@@ -73,25 +73,30 @@ class TestStatusCRUD(TestTasksMixin):
         assert response.status_code == 200
         assert 'Задача успешно создана' in message.message
 
-    def test_update_status(self, client, login_test_user, create_test_status):
-        """Тест обновления статуса."""
+    def test_update_status(self,
+                           client, login_test_user, create_test_task,
+                           create_test_user, create_test_status):
+        """Задача обновляется."""
 
         new_name = 'new_name'
-        status = TaskStatus.objects.first()
-        url = reverse('update_status', kwargs={'pk': status.pk})
+        url = reverse('update_task', kwargs={'pk': create_test_task.pk})
 
-        response = client.post(url, data={'name': new_name})
-        status = TaskStatus.objects.first()
+        response = client.post(url, data={
+            'name': new_name,
+            'author': create_test_user.pk,
+            'status': create_test_status.pk,
+        })
+        task = Task.objects.first()
 
         assert response.status_code == 302
-        assert response.url == reverse('statuses')
-        assert status.name == new_name
+        assert response.url == reverse('tasks')
+        assert task.name == new_name
 
         response = client.post(url, data={'name': new_name}, follow=True)
         message = list(response.context.get('messages'))[0]
 
         assert response.status_code == 200
-        assert 'Статус успешно изменен' in message.message
+        assert 'Задача успешно изменена' in message.message
 
     def test_get_delete_status(self, client, login_test_user, create_test_status):
         """Тест страницы удаления статуса."""
