@@ -98,17 +98,16 @@ class TestStatusCRUD(TestTasksMixin):
         assert response.status_code == 200
         assert 'Задача успешно изменена' in message.message
 
-    def test_get_delete_status(self, client, login_test_user, create_test_status):
-        """Тест страницы удаления статуса."""
+    def test_get_delete_status(self, client, login_test_user, create_test_task):
+        """Задача требует подтверждение удаления."""
 
-        status = TaskStatus.objects.first()
-        url = reverse('delete_status', kwargs={'pk': status.pk})
+        url = reverse('delete_task', kwargs={'pk': create_test_task.pk})
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.context['title'] == 'Удаление статуса'
+        assert response.context['title'] == 'Удаление задачи'
         assert 'Да, удалить' in response.content.decode('utf8')
-        assert f'Вы уверены, что хотите удалить {status.name}?' in response.content.decode('utf8')
+        assert f'Вы уверены, что хотите удалить {create_test_task.name}?' in response.content.decode('utf8')
         assert 'class="btn btn-danger"' in response.content.decode('utf8')
 
     def test_delete_status(self, client, login_test_user, create_test_status):
