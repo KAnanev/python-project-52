@@ -42,7 +42,7 @@ class TestTasksView(TestTasksMixin):
                              [reverse('update_task', kwargs={'pk': 1}),
                               reverse('delete_task', kwargs={'pk': 1})])
     def test_statuses_view_login_without_task(self, url, client, login_test_user):
-        """Не найдено, если нет статусов."""
+        """Не найдено, если нет задач."""
 
         response = client.get(url, follow=True)
         assert response.status_code == 404
@@ -110,15 +110,14 @@ class TestStatusCRUD(TestTasksMixin):
         assert f'Вы уверены, что хотите удалить {create_test_task.name}?' in response.content.decode('utf8')
         assert 'class="btn btn-danger"' in response.content.decode('utf8')
 
-    def test_delete_status(self, client, login_test_user, create_test_status):
-        """Тест удаления статуса."""
+    def test_delete_status(self, client, login_test_user, create_test_task):
+        """Задача удаляется."""
 
-        status = TaskStatus.objects.first()
-        url = reverse('delete_status', kwargs={'pk': status.pk})
+        url = reverse('delete_task', kwargs={'pk': create_test_task.pk})
         response = client.post(url, follow=True)
-        statuses = TaskStatus.objects.all()
+        tasks = Task.objects.all()
         message = list(response.context.get('messages'))[0]
 
         assert response.status_code == 200
-        assert not len(statuses)
-        assert 'Статус успешно удален' in message.message
+        assert not len(tasks)
+        assert 'Задача успешно удалена' in message.message
