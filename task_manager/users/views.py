@@ -70,5 +70,6 @@ class UserDeleteView(
     )
 
     extra_context = {
+        'title': _('Удаление пользователя'),
         'button_text': _('Да, удалить'),
     }
