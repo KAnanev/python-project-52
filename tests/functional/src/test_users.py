@@ -7,6 +7,12 @@ from tests.functional.conftest import BaseTest, TestUserMixin
 
 class TestUserView(TestUserMixin):
 
+    def test_user_view(self, db, client):
+        """Можно увидеть страницу пользователей."""
+        response = client.get(reverse('users'))
+        assert response.status_code == 200
+        assert response.context['title'] == 'Пользователи'
+
     @pytest.mark.parametrize('url',
                              [
                                  # reverse('users'),
@@ -26,11 +32,11 @@ class TestUserView(TestUserMixin):
 
     @pytest.mark.parametrize(('url', 'title'),
                              [
-                                 # (reverse('tasks'), 'Пользователи'),
-                                 (reverse('update_task', kwargs={'pk': 1}), 'Изменение задачи'),
-                                 (reverse('delete_task', kwargs={'pk': 1}), 'Удаление задачи'),
+                                 # (reverse('users'), 'Пользователи'),
+                                 (reverse('update_user', kwargs={'pk': 1}), 'Изменение пользователя'),
+                                 (reverse('delete_user', kwargs={'pk': 1}), 'Удаление пользователя'),
                              ])
-    def test_auth_update_view(self, url, client, create_test_user):
+    def test_user_view_with_login(self, url, title, client, login_test_user):
         """Авторизованный пользователь видит страницу изменения пользователя"""
 
         response = client.get(url, follow=True)
