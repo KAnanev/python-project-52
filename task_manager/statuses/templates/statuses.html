@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% load i18n %}
 {% block title %}{{ title }}{% endblock %}
 {% block name_page %}{{ title }}{% endblock %}
 {% block content %}
-
-<a class="nav-link" href="{% url 'create_status' %}">Создать статус</a>
+{% url 'create_status' as create_status %}
+{% bootstrap_button "Создать статус" button_type="link" button_class="btn-primary" href=create_status %}
 <table class="table table-striped">
   <thead>
     <tr>
