@@ -24,9 +24,9 @@
           <td>{{ task.executor|default:"" }}</td>
         <td>{{ task.created_at|date:'d.m.Y H:i' }}</td>
         <td>
-          <a href="{% url 'update_task' user.id %}">{% translate "Изменить" %}</a>
+          <a href="{% url 'update_task' task.id %}">{% translate "Изменить" %}</a>
           <br>
-          <a href="{% url 'delete_task' user.id %}">{% translate "Удалить" %}</a>
+          <a href="{% url 'delete_task' task.id %}">{% translate "Удалить" %}</a>
         </td>
       </tr>
     {% endfor %}

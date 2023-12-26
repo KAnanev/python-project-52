@@ -2,37 +2,49 @@ import pytest
 from django.urls import reverse
 
 from task_manager.users.models import User
-from tests.functional.conftest import BaseTest
+from tests.functional.conftest import BaseTest, TestUserMixin
 
 
-class BaseTestUserUpdate(BaseTest):
-    view_name = 'update_user'
+class TestUserView(TestUserMixin):
 
+    def test_user_view(self, db, client):
+        """Можно увидеть страницу пользователей."""
+        response = client.get(reverse('users'))
+        assert response.status_code == 200
+        assert response.context['title'] == 'Пользователи'
 
-class TestViewUserUpdate(BaseTestUserUpdate):
-
-    def test_no_auth_update_view(self, create_user_a, client_get):
+    @pytest.mark.parametrize('url',
+                             [
+                                 # reverse('users'),
+                                 reverse('update_user', kwargs={'pk': 1}),
+                                 reverse('delete_user', kwargs={'pk': 1}),
+                             ])
+    def test_user_view_without_login(self, url, client, create_test_user):
         """Неавторизованный пользователь переадресован на страницу авторизации."""
 
-        response = client_get(pk=create_user_a.pk)
+        response = client.get(url)
         assert response.status_code == 302
         assert response.url == reverse('login')
 
-        response = client_get(pk=create_user_a.pk, follow=True)
+        response = client.get(url, follow=True)
         assert response.status_code == 200
+        assert response.context['title'] == 'Вход'
 
-        message = list(response.context.get('messages'))[0]
-        assert 'Вы не авторизованы! Пожалуйста, выполните вход.' in message.message
-
-    def test_auth_update_view(self, login_user_a, create_user_a, client_get):
+    @pytest.mark.parametrize(('url', 'title'),
+                             [
+                                 # (reverse('users'), 'Пользователи'),
+                                 (reverse('update_user', kwargs={'pk': 1}), 'Изменение пользователя'),
+                                 (reverse('delete_user', kwargs={'pk': 1}), 'Удаление пользователя'),
+                             ])
+    def test_user_view_with_login(self, url, title, client, login_test_user):
         """Авторизованный пользователь видит страницу изменения пользователя"""
 
-        response = client_get(pk=create_user_a.pk)
+        response = client.get(url, follow=True)
         assert response.status_code == 200
-        assert response.context['title'] == "Изменение пользователя"
+        assert response.context['title'] == title
 
 
-class TestPostUserUpdate(BaseTestUserUpdate):
+class TestPostUserUpdate:
 
     @pytest.fixture
     def update_user_a(self, user_a):

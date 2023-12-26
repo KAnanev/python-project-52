@@ -14,6 +14,10 @@ class UserListView(ListView):
     model = User
     template_name = 'users.html'
 
+    extra_context = {
+        'title': 'Пользователи',
+    }
+
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = User
@@ -70,5 +74,6 @@ class UserDeleteView(
     )
 
     extra_context = {
+        'title': _('Удаление пользователя'),
         'button_text': _('Да, удалить'),
     }
