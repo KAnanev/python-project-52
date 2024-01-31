@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 from task_manager.mixins import AuthRequiredMixin, DeleteViewMixin
 from task_manager.tasks.models import Task
-from task_manager.users.models import User
 
 
 class TasksView(AuthRequiredMixin, ListView):
