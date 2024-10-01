@@ -1,6 +1,6 @@
 tests
 .github
-.env
+.env.dev
 docker-compose.dev.yaml
 .gitignore
 Dockerfile

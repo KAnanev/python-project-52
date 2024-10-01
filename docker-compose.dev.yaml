@@ -22,7 +22,7 @@ services:
     build:
       context: .
     env_file:
-      - .env
+      - .env.dev
     restart:
       always
     depends_on:
