@@ -1,7 +1,8 @@
 tests
 .github
+.env.prod
 .env.dev
-.env.production
+.env
 docker-compose.dev.yaml
 .gitignore
 Dockerfile
@@ -18,4 +19,3 @@ static
 .git
 .DS_Store
 /.idea
-/.env.production
