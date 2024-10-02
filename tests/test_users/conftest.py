@@ -12,5 +12,5 @@ def create_superuser(db):
 
 
 @pytest.fixture
-def login_super_user(client, create_user_a, create_superuser):
+def login_super_user(client, create_superuser):
     return client.force_login(create_superuser)

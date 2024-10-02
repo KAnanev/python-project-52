@@ -41,12 +41,11 @@ class TestSuperUserDelete(BaseTestUserDelete):
     def test_delete_super_user(self, client_get, client_post, create_superuser, login_super_user):
 
         response = client_get(pk=create_superuser.pk)
-        assert response.status_code == 200
-        assert f"Вы уверены, что хотите удалить {create_superuser.get_full_name()}" in response.context['desc']
+        assert response.status_code == 302
 
-        response = client_post(pk=create_superuser.pk, follow=True)
+        response = client_get(pk=create_superuser.pk, follow=True)
         message = list(response.context.get('messages'))[0]
-        assert response.status_code == 403
+        assert response.status_code == 200
         assert 'Невозможно удалить суперпользователя.' in message.message
 
         users = User.objects.all()
