@@ -22,7 +22,7 @@ class TestViewUserUpdate(BaseTestUserDelete):
         response = client_post(pk=create_user_b.pk, follow=True)
         message = list(response.context.get('messages'))[0]
         assert response.status_code == 200
-        assert 'У вас нет прав для изменения другого пользователя.' in message.message
+        assert 'У вас нет прав для выполнения этого действия!' in message.message
 
     def test_delete_user(self, client_get, client_post, login_user_a, create_user_a):
 
@@ -38,15 +38,12 @@ class TestViewUserUpdate(BaseTestUserDelete):
 
 class TestSuperUserDelete(BaseTestUserDelete):
 
-    def test_delete_super_user(self, client_get, client_post, create_superuser, login_super_user):
+    def test_delete_super_user(self, client_get, client_post, login_super_user, create_superuser):
 
-        response = client_get(pk=create_superuser.pk)
-        assert response.status_code == 302
-
-        response = client_get(pk=create_superuser.pk, follow=True)
+        response = client_post(pk=create_superuser.pk, follow=True)
         message = list(response.context.get('messages'))[0]
         assert response.status_code == 200
-        assert 'Невозможно удалить суперпользователя.' in message.message
+        assert 'У вас нет прав для выполнения этого действия!' in message.message
 
         users = User.objects.all()
         assert users.count() == 1
