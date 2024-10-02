@@ -8,7 +8,7 @@ class TestStatusesView(BaseViewTest, BaseTest):
     view_name = 'statuses'
     title = 'Статусы'
     button_text = 'Создать статус'
-    message = 'Вы не авторизованы! Пожалуйста, выполните вход.'
+    error_message = 'Вы не авторизованы! Пожалуйста, выполните вход.'
 
 
 class TestCreateStatus(BaseTest):
