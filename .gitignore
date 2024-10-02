@@ -392,3 +392,4 @@ pyrightconfig.json
 /.local.env
 /task_manager/settings/environments/local.py
 .DS_Store
+/task_manager/static/admin/

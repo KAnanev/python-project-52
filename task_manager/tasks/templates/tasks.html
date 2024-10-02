@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% load i18n %}
 {% block title %}{{ title }}{% endblock %}
 {% block name_page %}{{ title }}{% endblock %}
 {% block content %}
-
-<a class="nav-link" href="{% url 'create_task' %}">Создать задачу</a>
+{% url 'create_task' as create_task %}
+{% bootstrap_button "Создать задачу" button_type="link" button_class="btn-primary" href=create_task %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -23,9 +24,9 @@
           <td>{{ task.executor|default:"" }}</td>
         <td>{{ task.created_at|date:'d.m.Y H:i' }}</td>
         <td>
-{#          <a href="{% url 'update_user' user.id %}">{% translate "Изменить" %}</a>#}
-{#          <br>#}
-{#          <a href="{% url 'delete_user' user.id %}">{% translate "Удалить" %}</a>#}
+          <a href="{% url 'update_task' task.id %}">{% translate "Изменить" %}</a>
+          <br>
+          <a href="{% url 'delete_task' task.id %}">{% translate "Удалить" %}</a>
         </td>
       </tr>
     {% endfor %}
