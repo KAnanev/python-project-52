@@ -1,9 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.views.generic import DeleteView
+
+from task_manager.users.models import User
 
 
 class AuthRequiredMixin(LoginRequiredMixin):
@@ -36,3 +39,10 @@ class DeleteViewMixin(DeleteView):
         context = super().get_context_data(**kwargs)
         context['desc'] = _(f'Вы уверены, что хотите удалить {self.object}?')
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_superuser:
+            messages.error(request, _('Невозможно удалить суперпользователя.'))
+            return redirect(reverse_lazy('users'))
+        return super().dispatch(request, *args, **kwargs)
