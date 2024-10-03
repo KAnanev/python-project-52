@@ -1,5 +1,7 @@
 tests
 .github
+.env.prod
+.env.dev
 .env
 docker-compose.dev.yaml
 .gitignore

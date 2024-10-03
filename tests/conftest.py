@@ -5,45 +5,83 @@ from task_manager.statuses.models import TaskStatus
 from task_manager.tasks.models import Task
 
 
-class TestUserMixin:
-
-    TEST_USER_NAME = 'test_user'
-    TEST_PASS = 'test_pass'
-
-    @pytest.fixture
-    def test_user(self):
-        return {
-            'username': self.TEST_USER_NAME,
-            'password': self.TEST_PASS,
-        }
-
-    @pytest.fixture
-    def create_test_user(self, test_user, django_user_model):
-        return django_user_model.objects.create_user(**test_user)
-
-    @pytest.fixture
-    def login_test_user(self, test_user, create_test_user, client):
-        return client.login(**test_user)
+@pytest.fixture
+def user_a():
+    return {
+        'username': 'user_a',
+        'first_name': 'first_name_a',
+        'last_name': 'last_name_a',
+        'password1': 'pass',
+        'password2': 'pass',
+    }
 
 
-class TestStatusesMixin:
-    TEST_STATUS_NAME = 'test_status'
+@pytest.fixture
+def user_b():
+    return {
+        'username': 'test_user_b',
+        'first_name': 'test_first_name_b',
+        'last_name': 'test_last_name_b',
+        'password1': 'pass',
+        'password2': 'pass',
+    }
 
-    @pytest.fixture
-    def create_test_status(self, db):
-        return TaskStatus.objects.create(name=self.TEST_STATUS_NAME)
+
+@pytest.fixture
+def create_user(db, django_user_model):
+    def make_user(**kwargs):
+        return django_user_model.objects.create_user(**kwargs)
+
+    return make_user
 
 
-class TestTasksMixin(TestStatusesMixin, TestUserMixin):
-    TEST_TASK_NAME = 'test_task'
+@pytest.fixture
+def create_user_a(user_a, create_user):
+    return create_user(username=user_a.get('username'), password=user_a.get('password1'))
 
-    @pytest.fixture
-    def create_test_task(self, create_test_status, create_test_user):
-        return Task.objects.create(
-            name=self.TEST_TASK_NAME,
-            author=create_test_user,
-            status=create_test_status
-        )
+
+@pytest.fixture
+def create_user_b(user_b, create_user):
+    return create_user(username=user_b.get('username'), password=user_b.get('password1'))
+
+
+@pytest.fixture
+def login_user_a(client, create_user_a):
+    return client.force_login(create_user_a)
+
+
+@pytest.fixture
+def login_user_b(client, create_user_b):
+    return client.force_login(create_user_b)
+
+
+@pytest.fixture
+def status_data():
+    return {
+        'name': 'В работе',
+    }
+
+
+@pytest.fixture
+def create_status(db, status_data):
+    status = TaskStatus.objects.create(name=status_data['name'])
+    return status
+
+
+@pytest.fixture
+def task_data(create_user_a, create_status):
+    return {
+        'name': 'Написать письмо',
+        'description': 'Написать содержательное письмо',
+        'status': create_status.pk,
+        'executor': create_user_a.pk,
+    }
+
+
+@pytest.fixture
+def create_task(db, task_data):
+    task = Task.objects.create(**task_data)
+    return task
 
 
 class BaseTest:
