@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import ListView, CreateView, UpdateView
 
 from task_manager.mixins import (
-    AuthRequiredMixin, UserPermissionMixin, DeleteViewMixin
+    AuthRequiredMixin, UserPermissionMixin, DeleteViewMixin,
 )
 from task_manager.users.forms import UserForm
 from task_manager.users.models import User
@@ -13,10 +13,6 @@ from task_manager.users.models import User
 class UserListView(ListView):
     model = User
     template_name = 'users.html'
-
-    extra_context = {
-        'title': 'Пользователи',
-    }
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -70,10 +66,9 @@ class UserDeleteView(
 
     success_message = _('Пользователь успешно удален')
     permission_message = _(
-        _('У вас нет прав для изменения другого пользователя.')
+        _('У вас нет прав для выполнения этого действия!')
     )
 
     extra_context = {
-        'title': _('Удаление пользователя'),
         'button_text': _('Да, удалить'),
     }

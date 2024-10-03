@@ -21,7 +21,12 @@ class UserPermissionMixin(UserPassesTestMixin):
     permission_url = None
 
     def test_func(self):
-        return self.get_object() == self.request.user
+        user = self.get_object()
+        return (
+            user == self.request.user and not self.request.user.is_superuser
+        ) or (
+            self.request.user.is_superuser and user != self.request.user
+        )
 
     def handle_no_permission(self):
         messages.error(self.request, self.permission_message)
